@@ -1,0 +1,28 @@
+﻿.navbar {
+    /*z-index: 100;*/
+    position: fixed;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height:auto;
+    flex-wrap: nowrap;
+    justify-content: center;
+    transition: .5s;
+    padding:20px;
+}
+    .navbar .el-menu-item a {
+        display: block;
+        text-decoration: none;
+        padding: 0 20px;
+        font-size: 20px;
+        font-weight: bold;
+        transition: .5s;
+        border-radius: 10px;
+        transition: 1s;
+    }
+        .navbar .el-menu-item a:hover {
+            background-image: linear-gradient(135deg, #6495ED, #1E90FF);
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+            border-radius: 10px;
+        }

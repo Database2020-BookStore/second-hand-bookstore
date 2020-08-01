@@ -25,6 +25,24 @@ namespace BookStore
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            //axios js文件
+            bundles.Add(new ScriptBundle("~/bundles/axios").Include(
+             "~/Scripts/axios.js"));
+            //vue js文件
+            bundles.Add(new ScriptBundle("~/bundles/vue").Include(
+                         "~/Scripts/vue.js"));
+            //element js文件
+            bundles.Add(new ScriptBundle("~/bundles/element").Include(
+             "~/Scripts/ElementUI/element-ui.js"));
+            //自己的js文件
+            bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
+             "~/Scripts/js/index.js"));
+            //element css文件
+            bundles.Add(new StyleBundle("~/Content/elementcss").Include(
+            "~/Content/ElementUI/element-ui.css"));
+            //自己的css文件
+            bundles.Add(new StyleBundle("~/Content/styles").Include(
+            "~/Content/styles/navbar.css"));
         }
     }
 }
