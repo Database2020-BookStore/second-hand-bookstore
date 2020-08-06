@@ -11,6 +11,7 @@
     @Styles.Render("~/Content/styles/layout.css") @*基本布局*@
     @Styles.Render("~/Content/styles/navbar.css") @*导航栏*@
     @Styles.Render("~/Content/styles/footer.css") @*底部*@
+    @RenderSection("styles", required: false)     @*自己的css文件*@
 
 </head>
 <body>

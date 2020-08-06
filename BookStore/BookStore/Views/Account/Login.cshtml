@@ -2,4 +2,31 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewBag.Title = "登录";
 }
+@section styles{
+    @Styles.Render("~/Content/styles/login.css")
+}
 
+<el-row class="title">
+    <h1>登录</h1>
+</el-row>
+<el-form label-width="0">
+    <el-form-item>
+        <el-input class="form-input" v-model="username" placeholder="用户名">
+            <i slot="prefix" class="fa fa-user"></i>
+        </el-input>
+    </el-form-item>
+    <el-form-item >
+        <el-input class="form-input" v-model="password" placeholder="密码" show-password>
+            <i slot="prefix" class="fa fa-lock"></i>
+        </el-input>
+    </el-form-item>
+    <el-form-item>
+        <el-button type="primary" class="form-button" round>登录</el-button>
+    </el-form-item>
+</el-form>
+<el-row class="link">
+    <p>还没有账号？@Html.ActionLink("注册", "Regesiter", "Account")</p>
+</el-row>
+@section scripts{
+    @Scripts.Render("~/Scripts/js/login.js")
+}

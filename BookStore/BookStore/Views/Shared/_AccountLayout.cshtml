@@ -9,13 +9,17 @@
     @Styles.Render("~/Content/elementcss")
     @Styles.Render("~/Content/fontawesome")
     @Styles.Render("~/Content/styles/layout.css") @*基本布局*@
-    @Styles.Render("~/Content/styles/navbar.css") @*导航栏*@
-    @Styles.Render("~/Content/styles/footer.css") @*底部*@
+    @Styles.Render("~/Content/styles/account.css")
+    @RenderSection("styles", required: false)   @*自己的css文件*@
 
 </head>
 <body>
     <div id="main">
-        @RenderBody()
+        <div class="Page">
+            <el-card class="box" shadow="always">
+                @RenderBody()
+            </el-card>
+        </div>
     </div>
 
 
@@ -23,7 +27,7 @@
     @Scripts.Render("~/bundles/axios")      @*axios js文件*@
     @Scripts.Render("~/bundles/vue")        @*vue js文件*@
     @Scripts.Render("~/bundles/element")    @*element js文件*@
-    @Scripts.Render("~/Scripts/js/index.js")       @*自己的js文件*@
     @RenderSection("scripts", required: false)
+    @Scripts.Render("~/Scripts/js/index.js")       @*自己的js文件*@
 </body>
 </html>

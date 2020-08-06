@@ -1,0 +1,115 @@
+﻿.Page {
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: cadetblue;
+    transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+    /*表单卡片*/
+    .Page .box {
+        z-index: 3;
+        padding: 10px 10px;
+        width: auto;
+        height: auto;
+        background-color: rgba(255,255,255,0.2);
+        backdrop-filter: blur(5px);
+        border-width: 0;
+        border-radius: 10px;
+    }
+
+
+/*标题*/
+.title h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+/*表单*/
+.el-form {
+    text-align: center;
+}
+/*输入框*/
+.el-input.form-input {
+    border: 0;
+    outline: none;
+    font-size: 16px;
+    transition: .3s;
+}
+
+    .el-input.form-input:hover {
+        transform: scale(1.1);
+    }
+    /*输入框图标*/
+    .el-input.form-input .el-input__prefix {
+        margin: 0 10px;
+        color: white;
+    }
+
+/*输入框文本*/
+.el-input.form-input .el-input__inner {
+    padding-left: 40px;
+    border-radius: 20px;
+    border-width: 0;
+    background-color: rgba(255,255,255,.1);
+    color: white;
+    transition: .3s;
+}
+
+    .el-input.form-input:hover .el-input__inner {
+        background-color: rgba(255,255,255,.2);
+    }
+        /*输入框提示文字*/
+        .el-input.form-input .el-input__inner::-webkit-input-placeholder {
+            color: rgba(255,255,255,.5);
+        }
+
+        .el-input.form-input .el-input__inner::-moz-placeholder {
+            color: rgba(255,255,255,.5);
+        }
+
+        .el-input.form-input .el-input__inner:-ms-input-placeholder {
+            color: rgba(255,255,255,.5);
+        }
+/*密码输入框眼睛图标*/
+.el-input .el-input__icon.el-icon-view.el-input__clear {
+    color:white;
+}
+    .el-input .el-input__icon.el-icon-view.el-input__clear:hover {
+        color: rgba(255,255,255,.4);
+    }
+/*按钮*/
+.el-form .el-button.form-button {
+    margin: auto;
+    padding: 10px 40px;
+    transition: .3s;
+    background-color: rgba(255,255,255,.1);
+    border-width: 0;
+    font-size: 16px;
+}
+
+    .el-form .el-button.form-button:hover {
+        padding: 10px 60px;
+        background-color: rgba(255,255,255,.2);
+    }
+/*链接*/
+.link {
+    text-align: center;
+    font-size:16px;
+}
+    .link p {
+        color: white;
+    }
+    .link > p > a {
+        text-decoration: none;
+        color: #65B7FF;
+        transition: .3s;
+    }
+        .link > p > a:hover {
+            color: #8ACFFF;
+        }
