@@ -1,28 +1,90 @@
-﻿.navbar {
+﻿.el-header {
+    padding: 0;
+}
+/*导航栏*/
+.navbar {
     /*z-index: 100;*/
     position: fixed;
     top: 0;
     display: flex;
     width: 100%;
-    height:auto;
+    height: auto;
     flex-wrap: nowrap;
+    align-items: center;
     justify-content: center;
+    padding: 5px 40px;
+    margin: 0;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 3px 0px;
+    backdrop-filter: saturate(180%) blur(5px);
     transition: .5s;
-    padding:20px;
 }
-    .navbar .el-menu-item a {
+/*导航栏项*/
+.el-menu-item.navbar-item {
+    padding: 0;
+}
+
+    .el-menu-item.navbar-item:hover {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+    .el-menu-item.navbar-item.is-active {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+    .el-menu-item.navbar-item a {
         display: block;
         text-decoration: none;
-        padding: 0 20px;
-        font-size: 20px;
-        font-weight: bold;
-        transition: .5s;
-        border-radius: 10px;
-        transition: 1s;
+        padding: 20px;
+        color: #777777;
+        text-align: center;
     }
-        .navbar .el-menu-item a:hover {
-            background-image: linear-gradient(135deg, #6495ED, #1E90FF);
-            color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-            border-radius: 10px;
+
+        .el-menu-item.navbar-item a:hover {
+            background-color: #eee;
+            color: #777777;
         }
+/*菜单栏空项*/
+.navbar .navbar-item-blank-center {
+    flex-grow: 1;
+}
+.navbar .navbar-item-blank-right {
+    width:80px;
+}
+/*下拉菜单图标*/
+.el-submenu__title:hover {
+    background-color: #eee !important;
+}
+/*头像*/
+.navbar-menu .avatar{
+    width:30px;
+    height:30px;
+    border-color:rgba(0,0,0,0);
+    border-radius:50%;
+    overflow:hidden;
+    outline:none;
+    background-color:#eee;
+    margin-bottom:5px;
+    margin-right:5px;
+}
+
+.el-submenu__title > i {
+    margin-left: 0 !important;
+    color: #777777;
+}
+/*下拉菜单内容*/
+.el-menu.el-menu--popup.el-menu--popup-bottom-start {
+    padding: 10px 0;
+    padding-bottom: 20px;
+    background-color: white;
+}
+    /*下拉菜单项*/
+    .el-menu.el-menu--popup.el-menu--popup-bottom-start .el-menu-item.navbar-item {
+        margin: 10px 0;
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+        .el-menu.el-menu--popup.el-menu--popup-bottom-start .el-menu-item.navbar-item:hover {
+            background-color: rgba(0,0,0,0) !important;
+        }
+

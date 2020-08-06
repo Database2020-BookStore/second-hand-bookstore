@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二手书店 - @ViewBag.Title</title>
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/elementcss")
+    @Styles.Render("~/Content/fontawesome")
+    @Styles.Render("~/Content/styles/layout.css") @*基本布局*@
+    @Styles.Render("~/Content/styles/navbar.css") @*导航栏*@
+    @Styles.Render("~/Content/styles/footer.css") @*底部*@
+
+</head>
+<body>
+    <div id="main">
+        @RenderBody()
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/axios")      @*axios js文件*@
+    @Scripts.Render("~/bundles/vue")        @*vue js文件*@
+    @Scripts.Render("~/bundles/element")    @*element js文件*@
+    @Scripts.Render("~/Scripts/js/index.js")       @*自己的js文件*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

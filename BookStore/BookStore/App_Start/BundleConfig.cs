@@ -34,15 +34,12 @@ namespace BookStore
             //element js文件
             bundles.Add(new ScriptBundle("~/bundles/element").Include(
              "~/Scripts/ElementUI/element-ui.js"));
-            //自己的js文件
-            bundles.Add(new ScriptBundle("~/bundles/myscripts").Include(
-             "~/Scripts/js/index.js"));
             //element css文件
             bundles.Add(new StyleBundle("~/Content/elementcss").Include(
             "~/Content/ElementUI/element-ui.css"));
-            //自己的css文件
-            bundles.Add(new StyleBundle("~/Content/styles").Include(
-            "~/Content/styles/navbar.css"));
+            //font-awesome文字图标库
+            bundles.Add(new StyleBundle("~/Content/fontawesome").Include(
+            "~/Content/font-awesome.css"));
         }
     }
 }
