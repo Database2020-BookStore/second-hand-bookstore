@@ -21,12 +21,13 @@
         </el-input>
     </el-form-item>
     <el-form-item>
-        <el-button type="primary" class="form-button" round>登录</el-button>
+        <el-button type="primary" class="form-button" v-on:click="login" round>登录</el-button>
     </el-form-item>
 </el-form>
 <el-row class="link">
     <p>还没有账号？@Html.ActionLink("注册", "Regesiter", "Account")</p>
 </el-row>
+
 @section scripts{
     @Scripts.Render("~/Scripts/js/login.js")
 }

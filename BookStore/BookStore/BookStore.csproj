@@ -136,11 +136,15 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\imgs\avatar-default.svg" />
+    <Content Include="Content\imgs\home-background.jpg" />
     <Content Include="Content\imgs\login-background.png" />
     <Content Include="Content\imgs\regesiter-background.png" />
+    <Content Include="Content\imgs\tongji.png" />
     <Content Include="Content\styles\footer.css" />
+    <Content Include="Content\styles\home.css" />
     <Content Include="Content\styles\layout.css" />
     <Content Include="Content\styles\login.css" />
+    <Content Include="Content\styles\mall.css" />
     <Content Include="Content\styles\navbar.css" />
     <Content Include="Content\styles\account.css" />
     <Content Include="Content\styles\regesiter.css" />
@@ -173,8 +177,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\home.js" />
     <Content Include="Scripts\js\index.js" />
     <Content Include="Scripts\js\login.js" />
+    <Content Include="Scripts\js\mall.js" />
     <Content Include="Scripts\js\regesiter.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\vue.js" />
@@ -190,13 +196,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Regesiter.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\Home\Mall.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

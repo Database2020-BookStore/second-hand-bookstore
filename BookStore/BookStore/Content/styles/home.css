@@ -1,0 +1,132 @@
+﻿/* 页面头部 */
+.el-header.header,.Page{
+    width: 100%;
+    height: 100vh !important;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+}
+.el-header.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../imgs/home-background.jpg");
+    background-size: cover;
+    background-position: center;
+}
+/* 页面头部文字 */
+.PageBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 150px 50px;
+    text-align: center;
+    flex-grow:1;
+}
+
+.PageBlock h1 {
+    margin: 5px;
+    font-size: 80px;
+    font-weight: 400;
+    opacity: 0;
+    color:white;
+    animation: PageAnimation 3s 0.1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.PageBlock h3 {
+    margin: 20px 0;
+    letter-spacing: 20px;
+    color:white;
+    animation: PageAnimation 3s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 入场动画 */
+@keyframes PageAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* 向下滑动按钮 */
+.el-button.downbutton{
+    width: 80%;
+    height: 10%;
+    flex-grow:0;
+    transform: translate(0,-10vh);
+
+}
+.downicon{
+    color:white;
+    font-size: 24px;
+    animation: downAnimation 1.5s infinite;
+}   
+
+@keyframes downAnimation
+{
+    0% {transform: translate(0,40px); filter: invert(0%);}
+    50% {transform: translate(0,60px); filter: invert(50%);}
+    100% {transform: translate(0,40px); filter: invert(0%);}
+}
+
+/* 走马灯 */
+.carousel{
+    padding-top: 12vh;
+}
+.el-carousel__item {
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+/* 走马灯图片 */
+.el-carousel__item .showImg{
+    object-fit: contain;
+    margin:auto;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
+}
+.el-carousel__item:hover .showImg{
+    filter: brightness(50%);
+    transform: scale(1.1);
+}
+/* 走马灯商品信息 */
+.el-carousel__item .showInfo{
+	position: absolute;
+	top: 120%;
+    width: 100%;
+	z-index: 4;
+    transition: .5s;
+    text-align: center;
+}
+.el-carousel__item:hover .showInfo{
+    top: 35%;
+}
+
+.showInfo h1{
+	font-size: 24px;
+	color: white;
+	letter-spacing: 1px;
+	margin-bottom: 10px;
+}
+.showInfo p{
+    color: #eeeeee;
+    padding: 10px 20px;
+}
+.showInfo span{
+    font-size: 20px;
+    margin: auto;
+    max-width: 50%;
+    display: block;
+	font-family: italic;
+    color: #eee;
+}

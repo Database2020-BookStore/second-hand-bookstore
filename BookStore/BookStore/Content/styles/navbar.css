@@ -12,12 +12,28 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    padding: 5px 40px;
+    padding: 5px 0px;
     margin: 0;
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0);
+    border:none !important;
+    box-shadow: none;
+    transition: .3s;
+    z-index: 999;
+}
+.navbar-fixed{
+    background-color: rgba(255,255,255,0.8);
     box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 3px 0px;
     backdrop-filter: saturate(180%) blur(10px);
-    transition: .5s;
+}
+/* 同济logo */
+.logo{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background-color: #eee;
+    overflow:hidden;
+    outline:none;
+    margin-right:20px;
 }
 /*导航栏项*/
 .el-menu-item.navbar-item {
@@ -31,25 +47,32 @@
     .el-menu-item.navbar-item.is-active {
         background-color: rgba(0,0,0,0) !important;
     }
-
-    .el-menu-item.navbar-item a {
+    .el-menu-item.navbar-item > a {
         display: block;
         text-decoration: none;
         padding: 20px;
-        color: #777777;
+        color: white;
         text-align: center;
+        transition: .5s;
     }
 
-        .el-menu-item.navbar-item a:hover {
+    .navbar-fixed .el-menu-item.navbar-item > a {
+        color: #000;
+    }
+
+    .navbar-fixed .el-menu-item.navbar-item > a:hover {
             background-color: #eee;
-            color: #777777;
+            color: #000;
         }
 /*菜单栏空项*/
+.navbar .navbar-item-blank-left {
+    width:100px;
+}
 .navbar .navbar-item-blank-center {
     flex-grow: 1;
 }
 .navbar .navbar-item-blank-right {
-    width:80px;
+    width:100px;
 }
 /*下拉菜单图标*/
 .el-submenu__title:hover {
@@ -67,10 +90,12 @@
     margin-bottom:5px;
     margin-right:5px;
 }
-
 .el-submenu__title > i {
     margin-left: 0 !important;
-    color: #777777;
+    color: white;
+}
+.navbar-fixed .el-submenu__title > i {
+    color: #000;
 }
 /*下拉菜单内容*/
 .el-menu.el-menu--popup.el-menu--popup-bottom-start {
@@ -87,4 +112,11 @@
         .el-menu.el-menu--popup.el-menu--popup-bottom-start .el-menu-item.navbar-item:hover {
             background-color: rgba(0,0,0,0) !important;
         }
+     /*下拉菜单项文字*/
+     .el-menu.el-menu--popup.el-menu--popup-bottom-start .el-menu-item.navbar-item a{
+        color:#000;
+    }
+    .el-menu.el-menu--popup.el-menu--popup-bottom-start .el-menu-item.navbar-item a:hover{
+        background-color: #ccc;
+    }
 
