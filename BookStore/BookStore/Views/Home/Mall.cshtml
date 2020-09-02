@@ -5,10 +5,11 @@
 @section styles{
     @Styles.Render("~/Content/styles/mall.css")
 }
-
-@section PageHeader{
-    <div class="PageBlock">
-    </div>
+@section search{
+<el-input class="form-input" v-model="search" placeholder="书名、老师、课程名">
+    <el-button slot="suffix" class="fa fa-search search-button" type="text">
+    </el-button>
+</el-input>
 }
 
 @section scripts{

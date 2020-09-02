@@ -2,6 +2,7 @@
 var Data = {
     isLogin: false,
     uid: 0,
+    search:"",
 };
 
 

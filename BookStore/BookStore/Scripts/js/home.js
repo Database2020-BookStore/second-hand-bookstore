@@ -22,7 +22,7 @@ var Methods = {
     getNewBorrowBooks: function () {
         url = location.origin + '/Home/getNewBorrowBooks';
         axios
-            .post(url)
+            .post(url, { number:6 })
             .then((response)=> {
                 if (response.status == 200) {
                     var data = response.data[0];
@@ -46,7 +46,7 @@ var Methods = {
     getNewSellBooks: function () {
         url = location.origin + '/Home/getNewSellBooks';
         axios
-            .post(url)
+            .post(url, { number: 6 })
             .then((response) => {
                 if (response.status == 200) {
                     var data = response.data[0];
