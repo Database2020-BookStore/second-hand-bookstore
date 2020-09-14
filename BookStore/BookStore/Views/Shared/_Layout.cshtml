@@ -22,16 +22,17 @@
                 <!-- 导航栏 -->
                 <el-menu id="navbar" mode="horizontal" class="navbar">
                     <div class="navbar-item-blank-left"></div>
-                    <img class="logo" src="@Href("~/Content/imgs/tongji.png")"/>
+                    <img class="logo" src="@Href("~/Content/imgs/tongji.png")" />
                     <el-menu-item class="navbar-item" index="1">@Html.ActionLink("主页", "Index", "Home", null, new { @class = "fa fa-home fa-lg" })</el-menu-item>
                     <el-menu-item class="navbar-item" index="2">@Html.ActionLink("商城", "Mall", "Home", null, new { @class = "fa fa-shopping-bag fa-lg" })</el-menu-item>
+                    <el-menu-item class="navbar-item" index="2">@Html.ActionLink("检索", "searchPage", "search", null, new { @class = "fa fa-search fa-lg" })</el-menu-item>
                     <div class="navbar-item-blank-center">@RenderSection("search", required: false)</div>
                     <el-submenu class="navbar-menu" index="3" v-if="isLogin">
                         <template slot="title">
                             <img class="avatar" src="@Href("~/Content/imgs/avatar-default.svg")" />
                         </template>
                         <el-menu-item class="navbar-item" index="3-1">
-                            @Html.ActionLink("个人中心", "Index", "Home", null, new { @class = "fa fa-user-circle fa-lg" })
+                            @Html.ActionLink("个人中心", "Information", "Account", null, new { @class = "fa fa-user-circle fa-lg" })
                         </el-menu-item>
                         <el-menu-item class="navbar-item" index="3-2">
                             <a class="fa fa-sign-out fa-lg" href="javascript:;" onclick="app.logout()">退出登录</a>

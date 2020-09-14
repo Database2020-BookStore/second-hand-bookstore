@@ -1,0 +1,170 @@
+﻿.el-input{
+    width:30%;
+    margin:10px 0;
+}
+/*搜索输入框按钮*/
+.el-button.search-button {
+    margin-right: 10px;
+}
+/*标签*/
+.tags {
+    padding: 20px
+}
+
+.el-tag {
+    margin: 5px;
+}
+
+/*书籍展示*/
+.bookrow {
+    margin: 40px 0;
+}
+
+.el-card.bookcard:hover {
+    transition: .5s;
+    transform: translate(0,-20px);
+}
+
+.el-card__body {
+    padding: 0;
+}
+
+.el-card a {
+    text-decoration: none;
+    transition: .5s;
+    color: black;
+}
+
+    .el-card a:visited {
+        color: black;
+    }
+
+.bookInfo {
+    padding: 0 14px;
+}
+
+    .bookInfo p {
+        color: #69F;
+    }
+
+    .bookInfo .categry {
+        margin: 0;
+        margin-bottom: 5px;
+        color: #777;
+        font-size: small;
+    }
+
+.imgframe {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.el-image.bookimg {
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+    .el-image.bookimg:hover {
+        transform: scale(1.1);
+    }
+
+.el-image__error {
+    min-height: 200px;
+}
+
+/*分页*/
+.pages {
+    padding: 20px;
+}
+
+/*下拉菜单*/
+.dropdownlabel {
+    font-size: medium;
+    color: #777;
+    margin-right: 10px;
+}
+
+.el-dropdown-link {
+    color: #69F;
+}
+
+    .el-dropdown-link:hover {
+        cursor: pointer;
+    }
+/*侧边栏*/
+.el-aside {
+    border-right: rgba(0, 0, 0, 0.1) 1px solid;
+}
+
+    .el-aside .el-menu {
+        border: none !important;
+    }
+/*无商品文字*/
+.noGoods {
+    text-align: center;
+    color: gray;
+    font-size: 48px;
+}
+
+
+
+.el-button.downbutton {
+    width: 80%;
+    height: 10%;
+    flex-grow: 0;
+    transform: translate(0,-10vh);
+}
+
+.downicon {
+    color: white;
+    font-size: 24px;
+    animation: downAnimation 1.5s infinite;
+}
+
+@keyframes downAnimation {
+    0% {
+        transform: translate(0,40px);
+        filter: invert(0%);
+    }
+
+    50% {
+        transform: translate(0,60px);
+        filter: invert(50%);
+    }
+
+    100% {
+        transform: translate(0,40px);
+        filter: invert(0%);
+    }
+}
+
+
+.el-heder
+{
+    background-color: aquamarine;
+}
+/*商品展示*/
+.goodsPage {
+    margin: 100px 50px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    height: auto;
+    overflow: hidden;
+}
+
+    .goodsPage .title {
+        padding-top: 50px;
+        padding-left: 4%;
+        color: #333;
+    }
+
+    .goodsPage .divider {
+        width: 92%;
+        margin: auto;
+        margin-top: 20px;
+        border-bottom: rgba(0,0,0,0.3) 2px dashed;
+    }

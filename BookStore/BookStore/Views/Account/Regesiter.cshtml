@@ -8,34 +8,61 @@
 <el-row class="title">
     <h1>注册</h1>
 </el-row>
-<el-form label-width="0">
+<el-form label-width="0" v-if="!regesiterSuccess">
     <el-form-item>
-        <el-input class="form-input" v-model="username" placeholder="用户名">
+        <el-input class="form-input" v-model="username" placeholder="用户名" maxlength="10">
             <i slot="prefix" class="fa fa-user"></i>
         </el-input>
     </el-form-item>
     <el-form-item>
-        <el-input class="form-input" v-model="email" placeholder="邮箱">
-            <i slot="prefix" class="fa fa-envelope"></i>
+        <el-input class="form-input" v-model="phone" placeholder="手机号" maxlength="11">
+            <i slot="prefix" class="fa fa-phone"></i>
         </el-input>
     </el-form-item>
     <el-form-item>
-        <el-input class="form-input" v-model="password" placeholder="密码" show-password>
+        <el-input class="form-input" v-model="password" placeholder="密码" maxlength="20" show-password>
             <i slot="prefix" class="fa fa-lock"></i>
         </el-input>
     </el-form-item>
     <el-form-item>
-        <el-input class="form-input" v-model="repassword" placeholder="确认密码" show-password>
+        <el-input class="form-input" v-model="repassword" placeholder="确认密码" maxlength="20" show-password>
             <i slot="prefix" class="fa fa-lock"></i>
         </el-input>
     </el-form-item>
     <el-form-item>
-        <el-button type="primary" class="form-button" v-on:click="register"  round>注册</el-button>
+        <el-input class="form-input" v-model="school" placeholder="学校" maxlength="10">
+            <i slot="prefix" class="fa fa-university"></i>
+        </el-input>
+    </el-form-item>
+    <el-form-item>
+        <el-input class="form-input" v-model="department" placeholder="系别" maxlength="10">
+            <i slot="prefix" class="fa fa-book"></i>
+        </el-input>
+    </el-form-item>
+    <el-form-item>
+        <el-input class="form-input" v-model="age" placeholder="年龄" maxlength="3">
+            <i slot="prefix" class="fa fa-child"></i>
+        </el-input>
+    </el-form-item>
+    <el-form-item>
+        <el-button type="primary" class="form-button" v-on:click="register" round>注册</el-button>
     </el-form-item>
 </el-form>
-<el-row class="link">
+<el-row class="link" v-if="!regesiterSuccess">
     <p>已有账号？@Html.ActionLink("登录", "Login", "Account")</p>
 </el-row>
+
+<div class="textArea" v-if="regesiterSuccess">
+    <el-row class="text">
+        <p>注册成功!欢迎您<strong> {{username}} </strong>!</p>
+    </el-row>
+    <el-row class="text">
+        <p>您的账号为<strong> {{uid}} </strong>!</p>
+    </el-row>
+    <el-button type="primary" class="form-button" v-on:click="toLogin" round>马上登录</el-button>
+</div>
+
+
 @section scripts{
     @Scripts.Render("~/Scripts/js/regesiter.js")
 }

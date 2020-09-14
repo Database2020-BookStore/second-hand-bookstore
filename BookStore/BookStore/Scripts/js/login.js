@@ -1,25 +1,34 @@
 ﻿var Data = {
-    username: "",
+    userid: "",
     password: "",
 };
 
 var Methods = {
     login: function () {            //登录
         url = location.origin+'/Account/LoginRequest';
-        username = this.username;
+        userid = this.userid;
         password = this.password;
+        if (userid=="") {
+            alert("账号不能为空！");
+            return;
+        }
+        if (password == "") {
+            alert("密码不能为空！");
+            return;
+        }
         axios
-            .post(url, { username: username , password: password })
+            .post(url, { user_id: userid , password: password })
             .then(function (response) {
                 if (response.status == 200)
                 {
                     var data = response.data[0];
                     if (data.status == 'success') {
                         var uid = data.uid;
+                        var username = data.username;
                         console.log("Login Success!");
                         sessionStorage.setItem("isLogin", true);
                         sessionStorage.setItem("uid", uid);
-                        alert("登录成功！欢迎你，" + this.username+"！");
+                        alert("登录成功！欢迎你，" + username +"！");
                         location = '../';
                     }
                     else

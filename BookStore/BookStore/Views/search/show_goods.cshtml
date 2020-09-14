@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DateBaseTest.GOODS>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/styles/show_goods.css" rel="stylesheet" type="text/css" />
+    <title>show_goods</title>
+</head>
+<body>
+    <div id="pic"><img id="sea" src="~/Content/imgs/sea.jpg" /></div>
+    <div id="tab">
+    <p>您好:</p>
+    @ViewData["user_id"]
+        <p>以下是符合要求的商品，已按总评分排序</p>
+    <table class="table">
+        <tr>
+            <th>
+                <p>书名</p>
+            </th>
+            <th>
+                <p>价格</p>
+            </th>
+            <th>
+                <p>卖家</p>
+            </th>
+            <th>
+                <p>总评分</p>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.book_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.saler_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.score)
+                </td>
+                <td>
+                    @Html.ActionLink("下单", "place_order", new { book_name = item.book_name, price = item.price, goods_id = item.good_id, saler_id = item.saler_id, buyer_id = ViewData["buyer_id"] })
+                </td>
+            </tr>
+        }
+
+    </table>
+        </div>
+</body>
+</html>

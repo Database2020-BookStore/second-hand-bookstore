@@ -84,7 +84,7 @@
         color: rgba(255,255,255,.4);
     }
 /*按钮*/
-.el-form .el-button.form-button {
+.el-button.form-button {
     margin: auto;
     padding: 10px 40px;
     transition: .3s;
@@ -93,7 +93,7 @@
     font-size: 16px;
 }
 
-    .el-form .el-button.form-button:hover {
+    .el-button.form-button:hover {
         padding: 10px 60px;
         background-color: rgba(255,255,255,.2);
     }

@@ -6,11 +6,125 @@
     @Styles.Render("~/Content/styles/mall.css")
 }
 @section search{
-<el-input class="form-input" v-model="search" placeholder="书名、老师、课程名">
-    <el-button slot="suffix" class="fa fa-search search-button" type="text">
-    </el-button>
-</el-input>
+    <el-input class="form-input" v-model="search" placeholder="书名、老师、课程名">
+        <el-button slot="suffix" class="fa fa-search search-button" type="text" v-on:click="onSearchClick">
+        </el-button>
+    </el-input>
 }
+
+<el-container>
+    @*侧边栏*@
+    <el-aside width="200px"  v-loading="isLoading[1]">
+        <h1>书籍分类</h1>
+        <el-menu default-active="-1" v-on:select="onCategorySelect">
+            <template v-for="(value, index) in bookCategory">
+                <el-menu-item :index="index">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">{{value}}</span>
+                </el-menu-item>
+            </template>
+        </el-menu>
+        <el-divider></el-divider>
+        <h1>商品类型</h1>
+        <div>
+            <el-checkbox-group v-model="selectType" v-on:change="selectTypeChange()">
+                <el-checkbox v-for="type in  publishType" :label="type" :key="type" >{{type}}</el-checkbox>
+            </el-checkbox-group>
+        </div>
+    </el-aside>
+    @*书籍数据展示*@
+    <el-main>
+        <el-row type="flex" justify="space-between">
+            <el-col :span="6" class="resultNum">
+                <div class="Hc-Sp">共<strong>{{resultBooksNum}}</strong>个结果</div>
+            </el-col>
+            @*排序方式和单页数量*@
+            <el-col :span="8" class="control">
+                <el-row>
+                    <el-col :span="14" class="sortType">
+                        <span class="dropdownlabel">排序方式</span>
+                        <el-dropdown v-on:command="sortTypeChange">
+                            <span class="el-dropdown-link">
+                                {{sortTypes[currentSortType]}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item v-for="value in sortTypes" v-bind:command="value">{{value}}</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </el-col>
+                    <el-col :span="10" class="pageNum">
+                        <span class="dropdownlabel">查看结果</span>
+                        <el-dropdown v-on:command="pageNumChange">
+                            <span class="el-dropdown-link">
+                                {{currentpageNum}}<i class="el-icon-arrow-down el-icon--right"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item v-for="value in pageNums" v-bind:command="value">{{value}}</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
+        @*标签*@
+        <el-row class="tags">
+            @*商品类型标签*@
+            <el-tag :key="tag"
+                    v-for="tag in selectType"
+                    closable
+                    v-on:close="selectTypeTagClose(tag)">
+                {{tag}}
+            </el-tag>
+            @*书籍分类标签*@
+            <el-tag :key="tag"
+                    v-for="tag in selectbookCategory"
+                    closable
+                    v-on:close="bookCategoryTagClose(tag)">
+                {{tag}}
+            </el-tag>
+            @*关键字标签*@
+            <el-tag :key="tag"
+                    v-for="tag in searchword"
+                    closable
+                    v-on:close="searchwordTagClose(tag)">
+                {{tag}}
+            </el-tag>
+        </el-row>
+        @*书籍*@
+        <div v-loading="isLoading[0]" style="min-height:30vh;">
+            <h1 v-if="!isLoading[0]&&resultBooksNum==0" class="noGoods">找不到符合条件的商品！</h1>
+            <el-row class="bookrow" v-for="row in goodsCard" type="flex" justify="space-around">
+                <el-col :span="5" v-for="item in row">
+                    <el-card class="bookcard">
+                        <a :href="item.img" target="blank">
+                            <div class="imgframe">
+                                <el-image :src="item.img" class="bookimg"></el-image>
+                            </div>
+                            <div class="bookInfo">
+                                <h1>{{item.book_name}}</h1>
+                                <el-row>
+                                    <el-col :span="12"><p class="categry">书籍分类：{{item.category}}</p></el-col>
+                                    <el-col :span="12"><p class="categry">商品类型：{{(item.price>0)?'售卖':'借出'}}</p></el-col>
+                                </el-row>
+                                <span>{{item.goods_description}}</span>
+                                <p>￥{{item.price}}</p>
+                            </div>
+                        </a>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </div>
+        @*分页*@
+        <el-row class="pages" type="flex" justify="center">
+            <el-pagination :page-size="currentpageNum" :current-page.sync="currentPage" v-on:current-change="pageChange"
+                           :pager-count="5"
+                           background
+                           layout="prev, pager, next"
+                           :total="resultBooksNum">
+            </el-pagination>
+        </el-row>
+    </el-main>
+</el-container>
 
 @section scripts{
     @Scripts.Render("~/Scripts/js/mall.js")

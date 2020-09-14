@@ -1,0 +1,26 @@
+﻿#tab {
+    width: 700px;
+    height: 100px;
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    z-index: 100;
+}
+
+#iceland {
+    width: 1500px;
+    height: 1500px;
+    position: absolute;
+    opacity: 0.45;
+    z-index: 3;
+}
+
+button {
+    width: 40px;
+    height: 30px;
+    border-width: 0px;
+    border-radius: 3px;
+    background: rgba(220, 206, 206, 0.50); /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+}

@@ -77,20 +77,49 @@
     50% {transform: translate(0,60px); filter: invert(50%);}
     100% {transform: translate(0,40px); filter: invert(0%);}
 }
-
-/* 走马灯 */
-.carousel{
-    padding-top: 12vh;
+/*商品展示*/
+.goodsPage {
+    margin: 100px 50px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    border-radius:10px;
+    height:auto;
+    overflow:hidden;
 }
-.el-carousel__item {
-    border-radius: 10px;
+.goodsPage .title {
+    padding-top: 50px;
+    padding-left:4%;
+    color:#333;
+}
+    .goodsPage .divider{
+        width:92%;
+        margin:auto;
+        margin-top:20px;
+        border-bottom:rgba(0,0,0,0.3) 2px dashed;
+    }
+/* 走马灯 */
+.carousel {
+    padding-bottom: 1%;
+}
+.el-carousel {
+    margin:50px;
+    padding-left:20px;
+    padding-right:50px;
+}
+.el-carousel__container {
+}
+.el-carousel__item.el-carousel__item--card {
     background-color: white;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    margin-top: 10px;
+}
+.el-carousel__indicators.el-carousel__indicators--horizontal.el-carousel__indicators--outside{
+    margin-top:30px;
 }
 /* 走马灯图片 */
-.el-carousel__item .showImg{
+.el-carousel__item .showImg {
     object-fit: contain;
-    margin:auto;
+    margin: auto;
     width: 100%;
     height: 100%;
     transition: .5s;
@@ -129,4 +158,55 @@
     display: block;
 	font-family: italic;
     color: #eee;
+}
+/*推荐书单*/
+.recommendGoods {
+    margin: 50px;
+}
+    .recommendGoods .el-row {
+        margin: 40px 0;
+    }
+    .recommendGoods .el-card{
+        transition:.5s;
+    }
+        .recommendGoods .el-card:hover {
+            transform: translate(0,-20px);
+        }
+    .recommendGoods .el-card__body {
+        padding: 0;
+    }
+.el-card a {
+    text-decoration: none;
+    transition: .5s;
+    color: black;
+}
+
+    .el-card a:visited {
+        color: black;
+    }
+
+.goodsInfo {
+    padding: 0 14px;
+}
+
+    .goodsInfo p {
+        color: #69F;
+    }
+    .recommendGoods .imgframe {
+        width: 100%;
+        height:30vh;
+        overflow:hidden;
+    }
+.recommendGoods .el-image {
+    width: 100%;
+    object-fit: cover;
+    transition:.5s;
+}
+    .recommendGoods .el-image:hover {
+        transform: scale(1.1);
+    }
+    .recommendGoods .goodsInfo {
+    }
+.el-image__error {
+    min-height: 200px;
 }

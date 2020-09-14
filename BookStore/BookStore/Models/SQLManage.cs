@@ -8,34 +8,57 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 
+
 namespace DateBaseTest
 {
-    class BOOK
+    public class BOOK
     {
         public int book_id;
         public string book_name;
         public int dept_id;
         public string category;
-        public BOOK(int _book_id, string _book_name, int _dept_id, string _category)
+        public int score;
+        public int cnt; //售卖次数
+        public string state;  //出售状态
+        public string describe;
+        public string publishing_house;
+        public int version;
+        public BOOK(int _book_id, string _book_name, int _dept_id,
+            string _category, string _publishing_house, int _version)
         {
             this.book_id = _book_id;
             this.book_name = _book_name;
             this.dept_id = _dept_id;
             this.category = _category;
+            this.publishing_house = _publishing_house;
+            this.version = _version;
         }
     }
-    class GOODS
+    public class GOODS
     {
         public int good_id;
         public int book_id;
         public int price;
         public string good_description;
+        public int saler_id;
+        public int score;
+        public string book_name;
         public GOODS(int _good_id, int _book_id, int _price, string _good_description)
         {
             this.good_id = _good_id;
             this.book_id = _book_id;
             this.price = _price;
             this.good_description = _good_description;
+        }
+    }
+    class DEPT
+    {
+        public int dept_id;
+        public string dept_name;
+        public DEPT(int _dept_id, string _dept_name)
+        {
+            this.dept_id = _dept_id;
+            this.dept_name = _dept_name;
         }
     }
     class PURCHASE
@@ -68,6 +91,49 @@ namespace DateBaseTest
             this.content = _content;
         }
     }
+    class PUBLISH
+    {
+        public int goods_id;
+        public int user_id;
+        public int book_id;
+        public int publish_type;
+        public PUBLISH(int _goods_id, int _user_id, int _book_id, int _publish_type)
+        {
+            this.goods_id = _goods_id;
+            this.user_id = _user_id;
+            this.book_id = _book_id;
+            this.publish_type = _publish_type;
+        }
+    }
+    class USER
+    {
+        public int user_id;
+        public int honesty;
+        public int age;
+        public int dept_id;
+        public string password;
+        public string user_name;
+        public string university;
+        public string phone_number;
+        public USER(int _user_id, int _honesty, int _age, int _dept_id,
+            string _password, string _user_name, string _university, string _phone_number)
+        {
+            this.user_id = _user_id;
+            this.honesty = _honesty;
+            this.age = _age;
+            this.dept_id = _dept_id;
+            this.password = _password;
+            this.user_name = _user_name;
+            this.university = _university;
+            this.phone_number = _phone_number;
+        }
+    }
+    class Temp
+    {
+        public GOODS good;
+        public int score;
+        public string name;
+    }
     class DateBaseCmds
     {
         static string connString = "server=120.25.145.41;database=二手图书管理系统;uid=root;pwd=pwd;charset=utf8";
@@ -77,11 +143,11 @@ namespace DateBaseTest
             try
             {
                 conn.Open();
-                Console.WriteLine("ConnectSuccessfully!!");
             }
             catch (MySqlException ex)
             {
                 Console.WriteLine("ConnectFailed!!");
+                //MessageBox.Show(ex.Message);
             }
             finally
             {
@@ -157,6 +223,8 @@ namespace DateBaseTest
                     string book_name = null;
                     int dept_id = -1;
                     string category = null;
+                    string publishing_house = null;
+                    int version = -1;
                     try
                     {
                         book_id = reader.GetInt32("book_id");
@@ -189,7 +257,24 @@ namespace DateBaseTest
                     {
                         category = null;
                     }
-                    BOOK book = new BOOK(book_id, book_name, dept_id, category);
+                    try
+                    {
+                        publishing_house = reader.GetString("publishing_house");
+                    }
+                    catch
+                    {
+                        publishing_house = null;
+                    }
+                    try
+                    {
+                        version = reader.GetInt32("version");
+                    }
+                    catch
+                    {
+                        version = -1;
+                    }
+                    BOOK book = new BOOK(book_id, book_name, dept_id, category,
+                        publishing_house, version);
                     books.Add(book);
                 }
                 conn.Close();
@@ -240,7 +325,7 @@ namespace DateBaseTest
                     }
                     try
                     {
-                        good_description = reader.GetString("good_description");
+                        good_description = reader.GetString("goods_description");
                     }
                     catch
                     {
@@ -373,6 +458,178 @@ namespace DateBaseTest
             }
             return purchases;
         }
+
+        public List<PUBLISH> QueryPUBLISH(string SqlStr)
+        {
+            List<PUBLISH> publishs = new List<PUBLISH>();
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                conn.Open();
+                cmd.Connection = conn;
+                cmd.CommandText = SqlStr;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int goods_id = -1;
+                    int user_id = -1;
+                    int book_id = -1;
+                    int publish_type = -2;
+                    try
+                    {
+                        goods_id = reader.GetInt32("goods_id");
+                    }
+                    catch
+                    {
+                        goods_id = -1;
+                    }
+                    try
+                    {
+                        user_id = reader.GetInt32("user_id");
+                    }
+                    catch
+                    {
+                        user_id = -1;
+                    }
+                    try
+                    {
+                        book_id = reader.GetInt32("book_id");
+                    }
+                    catch
+                    {
+                        book_id = -1;
+                    }
+                    try
+                    {
+                        publish_type = reader.GetInt32("publish_type");
+                    }
+                    catch
+                    {
+                        publish_type = -1;
+                    }
+                    PUBLISH publish
+                        = new PUBLISH(goods_id, user_id, book_id, publish_type);
+                    publishs.Add(publish);
+                }
+                conn.Close();
+            }
+            return publishs;
+        }
+        public List<USER> QueryUSER(string SqlStr)
+        {
+            List<USER> users = new List<USER>();
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                conn.Open();
+                cmd.Connection = conn;
+                cmd.CommandText = SqlStr;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int user_id = -1;
+                    int honesty = -1;
+                    int age = -1;
+                    int dept_id = -1;
+                    string password = null;
+                    string user_name = null;
+                    string university = null;
+                    string phone_number = null;
+                    try
+                    {
+                        user_id = reader.GetInt32("user_id");
+                    }
+                    catch
+                    {
+                        user_id = -1;
+                    }
+                    try
+                    {
+                        honesty = reader.GetInt32("honesty");
+                    }
+                    catch
+                    {
+                        honesty = -1;
+                    }
+                    try
+                    {
+                        age = reader.GetInt32("age");
+                    }
+                    catch
+                    {
+                        age = -1;
+                    }
+                    try
+                    {
+                        dept_id = reader.GetInt32("dept_id");
+                    }
+                    catch
+                    {
+                        dept_id = -1;
+                    }
+                    try
+                    {
+                        password = reader.GetString("password");
+                    }
+                    catch
+                    {
+                        password = null;
+                    }
+                    try
+                    {
+                        user_name = reader.GetString("user_name");
+                    }
+                    catch
+                    {
+                        user_name = null;
+                    }
+                    try
+                    {
+                        university = reader.GetString("university");
+                    }
+                    catch
+                    {
+                        university = null;
+                    }
+                    try
+                    {
+                        phone_number = reader.GetString("phone_number");
+                    }
+                    catch
+                    {
+                        phone_number = null;
+                    }
+                    USER user
+                        = new USER(user_id, honesty, age, dept_id,
+                            password, user_name, university, phone_number);
+                    users.Add(user);
+                }
+                conn.Close();
+            }
+            return users;
+        }
+        public int QueryDeptId(string SqlStr)
+        {
+            int dept_id = -1;
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                conn.Open();
+                cmd.Connection = conn;
+                cmd.CommandText = SqlStr;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    try
+                    {
+                        dept_id = reader.GetInt32("dept_id");
+                    }
+                    catch
+                    {
+                        dept_id = -1;
+                    }
+                }
+                conn.Close();
+            }
+            return dept_id;
+        }
         public void UpdateInsertDelete(string SqlStr)
         {
             using (MySqlCommand cmd = new MySqlCommand())//创建查询命令
@@ -383,6 +640,43 @@ namespace DateBaseTest
                 cmd.ExecuteNonQuery();//用来执行sql语句，可用于增删改
                 conn.Close();
             }
+        }
+
+        public List<DEPT> DeptHelp(string SqlStr)
+        {
+            List<DEPT> depts = new List<DEPT>();
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                conn.Open();
+                cmd.Connection = conn;
+                cmd.CommandText = SqlStr;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int dept_id = -1;
+                    string dept_name = null;
+                    try
+                    {
+                        dept_id = reader.GetInt32("dept_id");
+                    }
+                    catch
+                    {
+                        dept_id = -1;
+                    }
+                    try
+                    {
+                        dept_name = reader.GetString("dept_name");
+                    }
+                    catch
+                    {
+                        dept_name = null;
+                    }
+                    DEPT dept = new DEPT(dept_id, dept_name);
+                    depts.Add(dept);
+                }
+                conn.Close();
+            }
+            return depts;
         }
     }
 }

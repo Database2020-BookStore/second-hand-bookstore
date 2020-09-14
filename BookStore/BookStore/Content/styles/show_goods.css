@@ -1,0 +1,16 @@
+﻿#tab {
+    width: 700px;
+    height: 2000px;
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    z-index: 100;
+}
+
+#sea {
+    width: 1920px;
+    height: 1018px;
+    position: absolute;
+    opacity: 0.45;
+    z-index: 3;
+}

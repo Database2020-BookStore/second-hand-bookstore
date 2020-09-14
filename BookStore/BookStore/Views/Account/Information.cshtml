@@ -1,0 +1,488 @@
+﻿@{
+    ViewBag.Title = "个人信息";
+}
+@section styles{
+
+    @Styles.Render("~/Content/styles/Information.css")
+
+}
+
+<el-container style="height: 500px; border: 1px solid #eee">
+    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+        <el-menu :default-openeds="['1', '3']">
+            <el-menu-item index="1" v-on:click="showInformation">
+                <i class="el-icon-user-solid"></i>个人信息
+            </el-menu-item>
+            <el-menu-item index="2" v-on:click="showSellingRecord">
+                <i class="el-icon-goods"></i>店铺展示
+            </el-menu-item>
+            <el-menu-item index="3" v-on:click="showSelledRecord">
+                <i class="el-icon-goods"></i>售卖历史
+            </el-menu-item>
+            <el-menu-item index="4" v-on:click="showBorrowingRecord">
+                <i class="el-icon-goods"></i>正在借阅
+            </el-menu-item>
+            <el-menu-item index="5" v-on:click="showBorrowedRecord">
+                <i class="el-icon-goods"></i>借阅历史
+            </el-menu-item>
+            <el-menu-item index="6" v-on:click="showBoughtRecord">
+                <i class="el-icon-goods"></i>购买记录
+            </el-menu-item>
+            <el-menu-item index="7" v-on:click="jumpToAddBook">
+                <i class="el-icon-goods"></i>上架新书
+            </el-menu-item>
+            <el-menu-item index="8" v-on:click="jumpToBorrowBook">
+                <i class="el-icon-goods"></i>借书
+            </el-menu-item>
+        </el-menu>
+    </el-aside>
+
+    <el-container>
+        <el-main>
+
+            <el-container class="goodsPage" id="Information">
+                <el-header class="title">个人信息</el-header>
+                <el-main>
+                    <div v-loading="isLoading[0]">
+                        <ul>
+                            <li v-for="(value, key) in user">
+                                {{ key }} : {{ value }}
+                            </li>
+                            <li>
+                                <el-input placeholder="新密码" v-model="newPassword1" show-password></el-input>
+                            </li>
+                            <li>
+                                <el-input placeholder="确认密码" v-model="newPassword2" show-password></el-input>
+                            </li>
+                            <li>
+                                <el-button type="primary" v-on:click="confirmPassword">修改密码</el-button>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </el-main>
+            </el-container>
+
+            <el-container class="goodsPage" id="selling">
+                <el-header class="title">店铺展示</el-header>
+                <el-main>
+                    <div v-loading="isLoading[1]" style="min-height:60vh;">
+                        <el-col :span="5" v-for="item in sellingBooks">
+                            <el-card class="bookcard">
+                                <a :href="item.img" target="blank">
+                                    <div class="imgframe">
+                                        <el-image :src="item.img" class="bookimg"></el-image>
+                                    </div>
+                                    <div class="bookInfo">
+                                        <h1>{{item.book_name}}</h1>
+                                        <span>{{item.goods_description}}</span>
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                </a>
+                            </el-card>
+                        </el-col>
+                    </div>
+                </el-main>
+            </el-container>
+
+
+            <el-container class="goodsPage" id="selled">
+                <el-header class="title">售卖历史</el-header>
+                <el-main>
+                    <div v-loading="isLoading[2]" style="min-height:60vh;">
+                        <el-col :span="5" v-for="item in selledBooks">
+                            <el-card class="bookcard">
+                                <a :href="item.img" target="blank">
+                                    <div class="imgframe">
+                                        <el-image :src="item.img" class="bookimg"></el-image>
+                                    </div>
+                                    <div class="bookInfo">
+                                        <h1>{{item.book_name}}</h1>
+                                        <span>{{item.goods_description}}</span>
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                </a>
+                            </el-card>
+                        </el-col>
+                    </div>
+                </el-main>
+            </el-container>
+
+
+
+            <el-container class="goodsPage" id="borrowing">
+                <el-header class="title">正在借阅</el-header>
+                <el-main>
+                    <div v-loading="isLoading[3]" style="min-height:60vh;">
+                        <el-col :span="5" v-for="item in borrowingBooks">
+                            <el-card class="bookcard">
+                                <a :href="item.img" target="blank">
+                                    <div class="imgframe">
+                                        <el-image :src="item.img" class="bookimg"></el-image>
+                                    </div>
+                                    <div class="bookInfo">
+                                        <h1>{{item.book_name}}</h1>
+                                        <span>{{item.goods_description}}</span>
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                </a>
+                            </el-card>
+                        </el-col>
+                    </div>
+                </el-main>
+            </el-container>
+
+            <el-container class="goodsPage" id="borrowed">
+                <el-header class="title">借阅历史</el-header>
+                <el-main>
+                    <div v-loading="isLoading[4]" style="min-height:60vh;">
+                        <el-col :span="5" v-for="item in borrowedBooks">
+                            <el-card class="bookcard">
+                                <a :href="item.img" target="blank">
+                                    <div class="imgframe">
+                                        <el-image :src="item.img" class="bookimg"></el-image>
+                                    </div>
+                                    <div class="bookInfo">
+                                        <h1>{{item.book_name}}</h1>
+                                        <span>{{item.goods_description}}</span>
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                </a>
+                            </el-card>
+                        </el-col>
+                    </div>
+                </el-main>
+            </el-container>
+
+            <el-container class="goodsPage" id="bought">
+                <el-header class="title">购买记录</el-header>
+                <el-main>
+                    <div v-loading="isLoading[5]" style="min-height:60vh;">
+                        <el-col :span="5" v-for="item in boughtBooks">
+                            <el-card class="bookcard">
+                                <a :href="item.img" target="blank">
+                                    <div class="imgframe">
+                                        <el-image :src="item.img" class="bookimg"></el-image>
+                                    </div>
+                                    <div class="bookInfo">
+                                        <h1>{{item.book_name}}</h1>
+                                        <span>{{item.goods_description}}</span>
+                                        <p>￥{{item.price}}</p>
+                                    </div>
+                                </a>
+                            </el-card>
+                        </el-col>
+                    </div>
+                    <el-button type="primary">评价</el-button>
+                </el-main>
+            </el-container>
+
+
+
+
+        </el-main>
+    </el-container>
+</el-container>
+
+@section scripts{
+    <script>
+
+        var Data =
+        {
+            isLogin: false,
+            uid: 0,
+            newPassword1: "",
+            newPassword2: "",
+            user:
+            {
+                user_id: "",
+                honesty: "",
+                age: "",
+                dept_id: "",
+                password: "",
+                user_name: "",
+                university: "",
+                phone_number: ""
+            },
+            isLoading: [
+                true, true, true, true, true, true,
+            ],
+
+            sellingBooks: [],
+            selledBooks: [],
+            borrowingBooks: [],
+            borrowedBooks: [],
+            boughtBooks: [],
+        };
+
+
+        var Methods =
+        {
+            showInformation: function () {
+                window.location.href = "#Information";
+            },
+            showSellingRecord: function () {
+                window.location.href = "#selling";
+
+            },
+            showSelledRecord: function () {
+                window.location.href = "#selled";
+
+            },
+            showBorrowingRecord: function () {
+                window.location.href = "#borrowing";
+
+            },
+            showBorrowedRecord: function () {
+                window.location.href = "#borrowed";
+
+            },
+            showBoughtRecord: function () {
+                window.location.href = "#bought";
+
+            },
+
+            jumpToAddBook: function () {
+                window.location.href = "#";
+            },
+            jumpToBorrowBook: function () {
+                window.location.href = "#";
+            },
+            confirmPassword: function () {
+
+                console.log("##############");
+                //alert("hi");
+
+                url = location.origin + '/Account/ChangePassword';
+                if (this.newPassword1 == "") {
+                    alert("密码不能为空，请重新填写！");
+                    return;
+                }
+                if (this.newPassword1 != this.newPassword2) {
+                    alert("两次密码不一致，请重新填写！");
+                    return;
+                }
+
+
+                axios
+                    .post(url, { user_id: this.uid, newPassword: this.newPassword1 })
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                console.log("Changed!");
+
+                                alert("修改成功！");
+                            }
+                            else {
+                                console.log("Fail!");
+                                alert("修改失败！" + data.message);
+                            }
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
+            },
+
+            getSellingBooks: function () {
+                url = location.origin + '/Account/GetSellingBooks';
+                axios
+                    .post(url, { user_id: sessionStorage.getItem("uid") })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                for (var i = 0; i < data.bookList.length; i++) {
+                                    if (i % 2 == 0)
+                                        data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                                    else
+                                        data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
+                                }
+                                this.sellingBooks = data.bookList;
+                                console.log("Get New BorrowBooks!");
+                                this.isLoading[1] = false;
+                            }
+                            else {
+                                var message = data.message;
+                                console.log(message);
+                            }
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            getSelledBooks: function () {
+                url = location.origin + '/Account/GetSelledBooks';
+                axios
+                    .post(url, { user_id: sessionStorage.getItem("uid") })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                for (var i = 0; i < data.bookList.length; i++) {
+                                    if (i % 2 == 0)
+                                        data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                                    else
+                                        data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
+                                }
+                                this.selledBooks = data.bookList;
+                                console.log("Get New BorrowBooks!");
+                                this.isLoading[2] = false;
+                            }
+                            else {
+                                var message = data.message;
+                                console.log(message);
+                            }
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            getBorrowingBooks: function () {
+                url = location.origin + '/Account/GetBorrowingBooks';
+                axios
+                    .post(url, { user_id: sessionStorage.getItem("uid") })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                for (var i = 0; i < data.bookList.length; i++) {
+                                    if (i % 2 == 0)
+                                        data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                                    else
+                                        data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
+                                }
+                                this.borrowingBooks = data.bookList;
+                                console.log("Get New BorrowBooks!");
+                                this.isLoading[3] = false;
+                            }
+                            else {
+                                var message = data.message;
+                                console.log(message);
+                            }
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            getBorrowedBooks: function () {
+                url = location.origin + '/Account/GetBorrowedBooks';
+                axios
+                    .post(url, { user_id: sessionStorage.getItem("uid") })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                for (var i = 0; i < data.bookList.length; i++) {
+                                    if (i % 2 == 0)
+                                        data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                                    else
+                                        data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
+                                }
+                                this.borrowedBooks = data.bookList;
+                                console.log("Get New BorrowBooks!");
+                                this.isLoading[4] = false;
+                            }
+                            else {
+                                var message = data.message;
+                                console.log(message);
+                            }
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            getBoughtBooks: function () {
+                url = location.origin + '/Account/GetBoughtBooks';
+                axios
+                    .post(url, { user_id: sessionStorage.getItem("uid") })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                for (var i = 0; i < data.bookList.length; i++) {
+                                    if (i % 2 == 0)
+                                        data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                                    else
+                                        data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
+                                }
+                                this.boughtBooks = data.bookList;
+                                console.log("Get New BorrowBooks!");
+                                this.isLoading[5] = false;
+                            }
+                            else {
+                                var message = data.message;
+                                console.log(message);
+                            }
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+
+
+            getUserInformation: function () {
+                url = location.origin + '/Account/GetUserInformation';
+                var uid = sessionStorage.getItem("uid");
+                console.log("2222");
+                axios
+                    .post(url, { user_id: uid })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            var data = response.data[0];
+                            if (data.status == 'success') {
+                                console.log(data.user_name);
+                                this.user.user_id = data.user_id;
+                                this.user.honesty = data.honesty;
+                                this.user.age = data.age;
+                                this.user.dept_id = data.dept_id;
+                                this.user.password = data.password;
+                                this.user.user_name = data.user_name;;
+                                this.user.university = data.university;
+                                this.user.phone_number = data.phone_number;
+
+                                this.isLoading[0] = false;
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
+        };
+
+
+        Created = function () {
+            Data.isLogin = false;
+            if (sessionStorage.getItem("isLogin")) {        //判断是否登录
+                var uid = sessionStorage.getItem("uid");
+                console.log("UID:" + uid);
+                this.isLogin = true;
+                this.uid = uid;
+
+            }
+            console.log("11111");
+            this.getSellingBooks();
+            this.getSelledBooks();
+            this.getBorrowingBooks();
+            this.getBorrowedBooks();
+            this.getBoughtBooks();
+
+            this.getUserInformation();
+        }
+
+    </script>
+
+}
+
+
+
+

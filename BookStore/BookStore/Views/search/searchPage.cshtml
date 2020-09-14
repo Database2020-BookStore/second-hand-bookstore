@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DateBaseTest.BOOK>
+@{
+    ViewBag.Title = "检索";
+}
+@section styles{
+    @Styles.Render("~/Content/styles/searchPage.css")
+}
+
+
+
+<div id="pic"><img id="blank" src="~/Content/imgs/blank.jpg" /></div>
+<div class="up">
+    <p>您好:</p>
+    @ViewData["user_id"]
+    <p>请在下方输入框中分别输入书籍的名称或所属的课程名: </p>
+    <span>书名</span>
+    <input type="text" id="book_name" />
+    &emsp;
+    &emsp;
+    &emsp;
+    &emsp;
+    &emsp;
+    <span>课程名</span>
+    <input type="text" id="course_name" />
+    <button onclick="submit()">检索</button>
+    <span id="info">@ViewData["res"]</span>
+</div>
+<div class="tab">
+    <table class="table">
+        <tr>
+            <th>
+                <p>书名</p>
+            </th>
+            <th>
+                <p>描述</p>
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.book_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.describe)
+                </td>
+                <td>
+                    @Html.ActionLink("查看详情", "show_goods", new { book_id = item.book_id, book_name = item.book_name, user_id = ViewData["user_id"] })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div style="height:50vh;"></div>
+@section scripts{
+<script>
+    function submit() {
+        location.href = "fetch_list?book_name=" + document.getElementById("book_name").value + "&course_name=" + document.getElementById("course_name").value+"&user_id="+"@ViewData["user_id"]";
+    }
+</script>
+}

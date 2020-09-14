@@ -4,3 +4,27 @@
     background-image: url("../imgs/regesiter-background.png");
 }
 
+    /*表单卡片*/
+    .Page .box {
+        padding: 0px 10px;
+    }
+
+/*链接*/
+.link p{
+    margin-top:0;
+}
+
+
+.textArea {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.text p {
+    font-size: large;
+    color: white;
+    margin: 20px 50px;
+}
+
+.el-button.form-button {
+    margin-top: 20px;
+}

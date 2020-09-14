@@ -1,7 +1,10 @@
 ﻿//数据
 var Data = {
     isLogin: false,
-    uid:0,
+    uid: 0,
+    isLoading: [
+        true, true, true,
+        ],
     newBorrowBooks: [],
     newSellBooks: [],
     recommendBooks: [],
@@ -28,10 +31,14 @@ var Methods = {
                     var data = response.data[0];
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
-                            data.bookList[i].img = location.origin+'/' + data.bookList[i].img;
+                            if(i%2==0)
+                                data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            else
+                                data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
                         }
                         this.newBorrowBooks = data.bookList;
                         console.log("Get New BorrowBooks!");
+                        this.isLoading[0] = false;
                     }
                     else {
                         var message = data.message;
@@ -56,6 +63,7 @@ var Methods = {
                         }
                         this.newSellBooks = data.bookList;
                         console.log("Get New SellBooks!");
+                        this.isLoading[1] = false;
                     }
                     else {
                         var message = data.message;
@@ -71,7 +79,7 @@ var Methods = {
         url = location.origin +'/Home/getRecommendBooks';
         uid = this.uid;
         axios
-            .post(url, { user_id: uid })
+            .post(url, { user_id: uid, number: 8})
             .then((response) => {
                 if (response.status == 200) {
                     var data = response.data[0];
@@ -94,14 +102,14 @@ var Methods = {
             });
     },
     getrecommendCard: function () {
-        var rowNum = Math.ceil(this.recommendBooks.length / 3);
+        var rowNum = Math.ceil(this.recommendBooks.length / 4);
         var rows = [];
         for (var i = 0; i < rowNum; i++) {
-            var row = this.recommendBooks.slice(i * 3, (i+ 1) * 3);
+            var row = this.recommendBooks.slice(i * 4, (i+ 1) * 4);
             rows.push(row);
         }
         this.recommendCard = rows;
-
+        this.isLoading[2] = false;
     }
 };
 
