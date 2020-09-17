@@ -1,46 +1,41 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_SearchLayout.cshtml";
+    ViewBag.Title = "place_order";
+}
+@section styles{
+    @Styles.Render("~/Content/styles/place_order.css")
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/styles/place_order.css" rel="stylesheet" type="text/css" />
-    <title>place_order</title>
-</head>
-<body>
-    <div id="pic"><img id="iceland" src="~/Content/imgs/iceland.jpg" /> </div>
-    <div id="tab">
+<div id="pic"><img id="iceland" src="~/Content/imgs/iceland.jpg" /> </div>
+<div id="tab">
     <p>请确认您的订单:</p>
-   <table class="table">
-    <tr>
-        <th>
-            <p>书名</p>
-        </th>
-        <th>
-            <p>价格</p>
-        </th>
-    </tr>
-       <tr>
-           <td>
-    @ViewData["book_name"]
-               </td>
-           <td>
-    @ViewData["price"]
-               </td>
-           </tr>
-    @ViewData["res"]
-            </table>
+    <table class="table">
+        <tr>
+            <th>
+                <p>书名</p>
+            </th>
+            <th>
+                <p>价格</p>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @ViewData["book_name"]
+            </td>
+            <td>
+                @ViewData["price"]
+            </td>
+        </tr>
+        @ViewData["res"]
+    </table>
     <button onclick="place()">下单</button>
-        </div>
-</body>
-</html>
-<script>
+</div>
+
+@section scripts{
+    <script>
     function place() {
         location.href = "place?user_id=" + "@ViewData["user_id"]" + "&saler_id=" + "@ViewData["saler_id"]" + "&goods_id=" + "@ViewData["goods_id"]";
     }
-</script>
+    </script>
+}

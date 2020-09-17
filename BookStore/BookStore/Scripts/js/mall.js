@@ -144,6 +144,7 @@ var Methods = {
             category: this.selectbookCategory, goodsType: this.selectType, sort: this.currentSortType,
             searchword: searchword, page: this.currentPage, pageNum: this.currentpageNum
         };
+        console.log("   ");
         console.log(requestData);
         axios
             .post(url, requestData )
@@ -152,7 +153,13 @@ var Methods = {
                     var data = response.data[0];
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
-                            data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/'+(i%7+1)+'.png';
+
+                            if (data.bookList[i].price>0)
+                                data.bookList[i].href = location.origin + '/one/show_one_goods?goods_id=' + data.bookList[i].goods_id;
+                            else if (data.bookList[i].price == 0)
+                                data.bookList[i].href = location.origin + '/one/borrow_one_goods?goods_id=' + data.bookList[i].goods_id;
                         }
                         this.allGoods = data.bookList;
                         console.log("Get Goods!");

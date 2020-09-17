@@ -8,7 +8,6 @@
     userName: "",
     goodName: "",
     goodsDescription: "",
-    price: 0.00,
     marks: 0.0,
     commentList: [],
     isLoading: true,
@@ -41,7 +40,6 @@ var Methods = {
                 if (response.status == 200) {
                     var data = response.data[0];
                     if (data.status == 'success') {
-                        this.price = data.price;
                         this.goodName = data.book_name;
                         this.goodsDescription = data.goods_description;
                         this.imgSrc = location.origin + '/' + data.img_src;
@@ -61,32 +59,28 @@ var Methods = {
                 console.log(error);
             });
     },
-    checkLogin: function () {
-        if (!this.isLogin) {
-            alert('您还未登录，请点击导航栏“登录”按钮进行登录！');
-        }
-    },
 
-    sendPurchaseInfo: function () {
+    sendBorrowInfo: function () {
         if (!this.isLogin) {
             alert('您还未登录，请点击导航栏“登录”按钮进行登录！');
             return;
         }
         else {
-            url = location.origin + '/one/buy_goods';
+            url = location.origin + '/one/borrow_goods';
             var time = new Date();
             var get_time = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
             var requestData = {
-                buyer_id: this.uid, saler_id: this.sid, goods_id: this.goodsID,
-                purchase_time: get_time, purchase_score:0, purchase_comment: ""
+                borrower_id: this.uid, lender_id: this.sid, goods_id: this.goodsID,
+                borrow_time: get_time, due:null
             };
             axios
                 .post(url, requestData)
                 .then((response) => {
                     if (response.status == 200) {
                         var data = response.data[0];
+                        console.log(data);
                         if (data.status == 'success') {
-                            alert("购买成功！订单已发送到您的个人信息页上！");
+                            alert("已成功向借书者发送借书请求，请耐心等待借书者的回应！");
                             history.go(-1);
                         }
                         else {
@@ -97,7 +91,7 @@ var Methods = {
                 })
         }
     },
-};
+}
 
 Created = function () {
     Data.isLogin = false;

@@ -4,10 +4,21 @@
 };
 
 var Methods = {
+    checkNumber: function (obj) {
+        var reg = /^[0-9]+$/;
+        if (obj != "" && !reg.test(obj)) {
+            return false;
+        }
+        return true;
+    },
     login: function () {            //登录
         url = location.origin+'/Account/LoginRequest';
         userid = this.userid;
         password = this.password;
+        if (!this.checkNumber(userid)) {
+            alert("账号格式错误！");
+            return;
+        }
         if (userid=="") {
             alert("账号不能为空！");
             return;

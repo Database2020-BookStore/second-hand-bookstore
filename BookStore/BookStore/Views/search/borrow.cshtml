@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/styles/place_order.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="pic"><img id="iceland" src="~/Content/imgs/iceland.jpg" /> </div>
+    <div id="tab">
+        <p>请确认您要借阅的书籍:</p>
+        <table class="table">
+            <tr>
+                <th>
+                    <p>书名</p>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewData["book_name"]
+                </td>
+            </tr>
+            @ViewData["res"]
+        </table>
+        <input type="text" id="due"/>
+        <button onclick="place()">借阅</button>
+    </div>
+</body>
+</html>
+<script>
+    function place() {
+        location.href = "add_to_borrow?user_id=" + "@ViewData["user_id"]" + "&saler_id=" + "@ViewData["saler_id"]" + "&goods_id=" + "@ViewData["goods_id"]" + "&due="+document.getElementById("due").value;
+    }
+</script>

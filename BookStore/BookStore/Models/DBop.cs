@@ -120,21 +120,22 @@ namespace DBop
             solding_book_list = datebase_connect.QueryGOODS("select * from goods where price>0");
             return solding_book_list;
         }
-        public void add_book(string book_name, int dept_id, string category,
+        public int add_book(string book_name, int dept_id, string category,
             string publishing_house = null, int version = -1)
         {
             DateBaseCmds datebase_connect = new DateBaseCmds();
             datebase_connect.test_connect();
             BOOK book = get_only_book(book_name, publishing_house, version);
-            if (book == null)
+            if (book != null)
             {
                 Console.WriteLine("book existed");
-                return;
+                return -1;
             }
             int book_id_generator = assign_book_id();
-            string insertion_sql = "insert into book values(" + book_id_generator.ToString() + ",'" + book_name + "'," + dept_id.ToString() + ",'" + category + "')";
+            string insertion_sql = "insert into book values(" + book_id_generator.ToString() + ",'" + book_name + "'," + dept_id.ToString() + ",'" + category + "','" + publishing_house + "'," + version + ")";
             Console.Write(insertion_sql);
             datebase_connect.UpdateInsertDelete(insertion_sql);
+            return book_id_generator;
         }
         private int assign_book_id()
         {
@@ -548,6 +549,8 @@ namespace DBop
             return ans;
         }
 
+
+
         public List<GOODS> get_my_selled_goods(int user_id)
         {
             DateBaseCmds database_connect = new DateBaseCmds();
@@ -567,5 +570,101 @@ namespace DBop
                     "select goods_id,book_id,price,goods_description from borrow natural join goods where  borrower_id = " + user_id.ToString());
             return goods_list;
         }
+
+
+        ///new////////////////////////////////////////
+        public List<GOODS> get_my_selling_goods(int user_id)
+        {
+            DateBaseCmds database_connect = new DateBaseCmds();
+            database_connect.test_connect();
+            List<GOODS> goods_list =
+                database_connect.QueryGOODS(
+                    " select goods.goods_id,goods.book_id,price,goods_description from publish join goods where goods.goods_id = publish.goods_id and user_id = " + user_id.ToString());
+            return goods_list;
+        }
+        public void insert_purchase(int buyer_id, int saler_id, int goods_id, string purchase_time, int purchase_score, string purchase_comment,int price)
+        {
+            DateBaseCmds datebase_connect = new DateBaseCmds();
+            datebase_connect.test_connect();
+            //Console.WriteLine("insert into purchase values(" + buyer_id.ToString()+","+saler_id.ToString() + ","+goods_id.ToString()+",'" + purchase_time + "'," + purchase_score.ToString() + ",'" + purchase_comment + "')");
+            datebase_connect.UpdateInsertDelete("insert into purchase values(" + buyer_id.ToString() + "," + saler_id.ToString() + "," + goods_id.ToString() + ",'" + purchase_time + "'," + purchase_score.ToString() + ",'" + purchase_comment + "')");
+            datebase_connect.UpdateInsertDelete("update goods set price="+(-5-price)+" where goods_id=" + goods_id.ToString());
+            //Console.WriteLine("update goods set price=-1 where goods_id=" + goods_id.ToString());
+        }
+
+        public void insert_borrow(int borrower_id, int lender_id, int goods_id, string borrow_time, string due)
+        {
+            DateBaseCmds datebase_connect = new DateBaseCmds();
+            datebase_connect.test_connect();
+            //Console.WriteLine("insert into purchase values(" + buyer_id.ToString()+","+saler_id.ToString() + ","+goods_id.ToString()+",'" + purchase_time + "'," + purchase_score.ToString() + ",'" + purchase_comment + "')");
+            if(due==null)
+            {
+                datebase_connect.UpdateInsertDelete("insert into borrow values(" + borrower_id.ToString() + "," + lender_id.ToString() + "," + goods_id.ToString() + ",'" + borrow_time + "',null)");
+
+            }
+            else
+            {
+                datebase_connect.UpdateInsertDelete("insert into borrow values(" + borrower_id.ToString() + "," + lender_id.ToString() + "," + goods_id.ToString() + ",'" + borrow_time + "','" + due + "')");
+            }
+            datebase_connect.UpdateInsertDelete("update goods set price=-3 where goods_id=" + goods_id.ToString());
+            //Console.WriteLine("update goods set price=-1 where goods_id=" + goods_id.ToString());
+        }
+        public int publish_books(string book_name, int price,
+    string good_description, int user_id = 0, string dept_name = null, string category = null, string publishing_house = null, int version = -1)
+        {
+            DateBaseCmds database_connect = new DateBaseCmds();
+            database_connect.test_connect();
+            int book_id = -1;
+            List<BOOK> book_list = database_connect.QueryBOOK("select * from book where book_name='" + book_name + "'");
+            if (book_list.Count == 0)
+            {
+                if (dept_name == null || category == null || version == -1 || publishing_house == null)
+                {
+                    return -1;
+                }
+                else
+                {
+                    List<DEPT> dept_list = database_connect.DeptHelp("select * from department");
+                    int dept_id_fetch = -1;
+                    foreach (DEPT dept in dept_list)
+                    {
+                        if (dept.dept_name == dept_name)
+                        {
+                            dept_id_fetch = dept.dept_id;
+                        }
+                    }
+                    book_id = add_book(book_name, dept_id_fetch, category, publishing_house, version);
+                }
+            }
+            else
+            {
+                book_id = book_list[0].book_id;
+            }
+            int goods_id = generate_good_id();
+            database_connect.UpdateInsertDelete(
+                "insert into goods values(" + goods_id.ToString() + "," + price.ToString() + ",'" +
+                good_description + "'," + book_id.ToString() + ")"
+                );
+
+            string publish_type = "123";
+
+            database_connect.UpdateInsertDelete(
+                "insert into publish values(" + goods_id.ToString() + "," + user_id.ToString() + ",'" +
+                book_id.ToString() + "'," + publish_type + ")"
+                );
+            
+            return 0;
+        }
+
+        public List<GOODS> get_borrowing_book()
+        {
+            DateBaseCmds datebase_connect = new DateBaseCmds();
+            datebase_connect.test_connect();
+            List<GOODS> solding_book_list = new List<GOODS>();
+            solding_book_list = datebase_connect.QueryGOODS("select * from goods where price=-1");
+            return solding_book_list;
+        }
+
+
     }
 }

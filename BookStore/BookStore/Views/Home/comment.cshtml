@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "评论";
+}
+@section styles{
+    @Styles.Render("~/Content/styles/publish.css")
+}
+
+@section search{
+    <el-input class="form-input" v-model="search" placeholder="书名、老师、课程名">
+        <el-button slot="suffix" class="fa fa-search search-button" type="text">
+        </el-button>
+    </el-input>
+
+}
+
+
+<el-main>
+    <template>
+        <div id="menu" style="height:800px;width:300px;float:left;">
+
+
+        </div>
+        <div id="content" style="background-color:#FFFFFF;height:800px;width:800px;float:left;">
+            <h2>为这本书评分吧</h2>
+            <el-row>
+                <el-col :span="4">书ID：</el-col>
+                <el-col :span="20">
+                    <el-input class="form-input" v-model="book_id" placeholder="请输入id" :disabled="true"></el-input>
+                </el-col>
+            </el-row>
+            <br>
+            <el-row>
+                <el-col :span="4">描述：</el-col>
+                <el-col :span="20">
+                    <el-input class="form-input" v-model="comment_description" placeholder="请输入描述"></el-input>
+                </el-col>
+            </el-row>
+
+            <br>
+            <div class="block">
+                <span class="demonstration">来打个分吧</span>
+                <el-rate v-model="score"></el-rate>
+            </div>
+            <br>
+            <el-button type="primary" v-on:click="Publish_comment">提交</el-button>
+        </div>
+    </template>
+</el-main>
+@section scripts{
+    @Scripts.Render("~/Scripts/js/comment.js")
+}

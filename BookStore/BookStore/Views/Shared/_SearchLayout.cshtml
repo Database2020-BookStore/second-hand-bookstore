@@ -1,18 +1,17 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>同济二手书店 - @ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/styles/searchPage.css" rel="stylesheet" type="text/css" />
+    <title>@ViewBag.Title</title>
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/elementcss")
     @Styles.Render("~/Content/fontawesome")
     @Styles.Render("~/Content/styles/layout.css") @*基本布局*@
     @Styles.Render("~/Content/styles/navbar.css") @*导航栏*@
-    @Styles.Render("~/Content/styles/footer.css") @*底部*@
     @RenderSection("styles", required: false)     @*自己的css文件*@
-
 </head>
 <body>
     <div id="main">
@@ -26,7 +25,7 @@
                     <el-menu-item class="navbar-item" index="1">@Html.ActionLink("主页", "Index", "Home", null, new { @class = "fa fa-home fa-lg" })</el-menu-item>
                     <el-menu-item class="navbar-item" index="2">@Html.ActionLink("商城", "Mall", "Home", null, new { @class = "fa fa-shopping-bag fa-lg" })</el-menu-item>
                     <el-menu-item class="navbar-item" index="2">@Html.ActionLink("检索", "searchPage", "search", null, new { @class = "fa fa-search fa-lg" })</el-menu-item>
-                    <div class="navbar-item-blank-center">@RenderSection("search", required: false)</div>
+                    <div class="navbar-item-blank-center"></div>
                     <el-submenu class="navbar-menu" index="3" v-if="isLogin">
                         <template slot="title">
                             <img class="avatar" src="@Href("~/Content/imgs/avatar-default.svg")" />
@@ -45,29 +44,45 @@
                     <el-menu-item class="navbar-item" index="5" v-if="!isLogin">@Html.ActionLink("注册", "Regesiter", "Account", null, new { @class = "fa fa-user-plus fa-lg" })</el-menu-item>
                     <div class="navbar-item-blank-right"></div>
                 </el-menu>
-                @RenderSection("PageHeader", required: false)
             </el-header>
-            <!-- 主体 -->
-            <el-main>
-                <!-- 回到顶部按钮 -->
-                <el-backtop>
-                </el-backtop>
-                @RenderBody()
-            </el-main>
-            <!-- Footer -->
-            <el-footer class="footer">
-                <p>&copy; @DateTime.Now.Year - 同济二手书店</p>
-            </el-footer>
         </el-container>
-
+        <!-- 回到顶部按钮 -->
+        <el-backtop>
+        </el-backtop>
     </div>
-
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/axios")      @*axios js文件*@
-    @Scripts.Render("~/bundles/vue")        @*vue js文件*@
-    @Scripts.Render("~/bundles/element")    @*element js文件*@
-    @RenderSection("scripts", required: false)
-    @Scripts.Render("~/Scripts/js/index.js")       @*自己的js文件*@
+    @RenderBody()
 </body>
 </html>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/axios")      @*axios js文件*@
+@Scripts.Render("~/bundles/vue")        @*vue js文件*@
+@Scripts.Render("~/bundles/element")    @*element js文件*@
+@RenderSection("scripts", required: false)
+<script>
+    var Data = {
+        isLogin: false,
+        uid: 0,
+    };
+    //方法
+    var Methods = {
+        logout: function () {       //退出登录
+            sessionStorage.removeItem('isLogin');
+            sessionStorage.removeItem('uid');
+            alert("已退出登录！");
+            this.isLogin = false;
+        }
+    }
+    //创建时执行的函数
+    var Created = function () {
+            Data.isLogin = false;
+            if (sessionStorage.getItem("isLogin")) {        //判断是否登录
+                var uid = sessionStorage.getItem("uid");
+                console.log("UID:" + uid);
+                this.isLogin = true;
+                this.uid = uid;
+            }
+    }
+
+</script>
+@Scripts.Render("~/Scripts/js/index.js")       @*自己的js文件*@

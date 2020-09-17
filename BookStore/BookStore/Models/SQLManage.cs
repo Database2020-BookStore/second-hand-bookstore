@@ -11,6 +11,10 @@ using MySql.Data.MySqlClient;
 
 namespace DateBaseTest
 {
+    public class IP
+    {
+        public const string ip = "120.25.145.41";
+    }
     public class BOOK
     {
         public int book_id;
@@ -136,7 +140,7 @@ namespace DateBaseTest
     }
     class DateBaseCmds
     {
-        static string connString = "server=120.25.145.41;database=二手图书管理系统;uid=root;pwd=pwd;charset=utf8";
+        static string connString = "server="+IP.ip +";database=二手图书管理系统;uid=root;pwd=pwd;charset=utf8";
         MySqlConnection conn = new MySqlConnection(connString);
         public void test_connect()
         {

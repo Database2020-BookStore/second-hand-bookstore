@@ -3,7 +3,7 @@
     width: 1000px;
     height: 150px;
     position: absolute;
-    top:0;
+    top:150px;
     left:300px;
     z-index: 100;
 }
@@ -11,7 +11,7 @@
     width: 1000px;
     height: 2000px;
     position: absolute;
-    top: 150px;
+    top: 300px;
     left: 300px;
     z-index: 100;
 }

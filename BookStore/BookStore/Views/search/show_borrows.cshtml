@@ -2,12 +2,11 @@
 
 @{
     Layout = "~/Views/Shared/_SearchLayout.cshtml";
-    ViewBag.Title = "show_goods";
+    ViewBag.Title = "show_borrows";
 }
 @section styles{
     @Styles.Render("~/Content/styles/show_goods.css")
 }
-
 
 <div id="pic"><img id="sea" src="~/Content/imgs/sea.jpg" /></div>
 <div id="tab">
@@ -23,7 +22,7 @@
                 <p>价格</p>
             </th>
             <th>
-                <p>卖家</p>
+                <p>书主人</p>
             </th>
             <th>
                 <p>总评分</p>
@@ -46,20 +45,18 @@
                     @Html.DisplayFor(modelItem => item.score)
                 </td>
                 <td>
-                    <button onclick="jump_to_good(@item.good_id)">查看详情</button>
+                    <button onclick="jump_to_borrow(@item.good_id)">查看详情</button>
                 </td>
             </tr>
         }
 
     </table>
 </div>
-
 @section scripts{
     <script>
 
-
-        function jump_to_good(goods_id) {
-            location = "../one/show_one_goods?goods_id=" + goods_id.toString();
-        }
+    function jump_to_borrow(goods_id) {
+        location = "../one/borrow_one_goods?goods_id=" + goods_id.toString();
+    }
     </script>
 }

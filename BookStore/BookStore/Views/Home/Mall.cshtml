@@ -96,7 +96,7 @@
             <el-row class="bookrow" v-for="row in goodsCard" type="flex" justify="space-around">
                 <el-col :span="5" v-for="item in row">
                     <el-card class="bookcard">
-                        <a :href="item.img" target="blank">
+                        <a :href="item.href" target="blank">
                             <div class="imgframe">
                                 <el-image :src="item.img" class="bookimg"></el-image>
                             </div>

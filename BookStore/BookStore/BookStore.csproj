@@ -163,6 +163,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\oneController.cs" />
     <Compile Include="Controllers\searchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,9 +181,13 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\imgs\avatar-default.svg" />
+    <Content Include="Content\imgs\blank.jpg" />
     <Content Include="Content\imgs\home-background.jpg" />
+    <Content Include="Content\imgs\iceland.jpg" />
     <Content Include="Content\imgs\login-background.png" />
+    <Content Include="Content\imgs\mars.jpg" />
     <Content Include="Content\imgs\regesiter-background.png" />
+    <Content Include="Content\imgs\sea.jpg" />
     <Content Include="Content\imgs\tongji.png" />
     <Content Include="Content\styles\footer.css" />
     <Content Include="Content\styles\home.css" />
@@ -192,6 +197,8 @@
     <Content Include="Content\styles\mall.css" />
     <Content Include="Content\styles\navbar.css" />
     <Content Include="Content\styles\account.css" />
+    <Content Include="Content\styles\place_order.css" />
+    <Content Include="Content\styles\publish.css" />
     <Content Include="Content\styles\regesiter.css" />
     <Content Include="Content\styles\searchPage.css" />
     <Content Include="Content\styles\show_goods.css" />
@@ -214,6 +221,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ElementUI\element-ui.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -225,10 +233,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\borrowGood.js" />
+    <Content Include="Scripts\js\comment.js" />
     <Content Include="Scripts\js\home.js" />
     <Content Include="Scripts\js\index.js" />
     <Content Include="Scripts\js\login.js" />
     <Content Include="Scripts\js\mall.js" />
+    <Content Include="Scripts\js\publish.js" />
     <Content Include="Scripts\js\regesiter.js" />
     <Content Include="Scripts\js\showGood.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -251,10 +262,16 @@
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <Content Include="Views\Home\Mall.cshtml" />
     <Content Include="Views\Account\Information.cshtml" />
-    <Content Include="Views\Home\show_one_goods.cshtml" />
     <Content Include="Views\search\place_order.cshtml" />
     <Content Include="Views\search\searchPage.cshtml" />
     <Content Include="Views\search\show_goods.cshtml" />
+    <Content Include="Views\search\borrow.cshtml" />
+    <Content Include="Views\search\show_borrows.cshtml" />
+    <Content Include="Views\one\borrow_one_goods.cshtml" />
+    <Content Include="Views\one\show_one_goods.cshtml" />
+    <Content Include="Views\Shared\_SearchLayout.cshtml" />
+    <Content Include="Views\Home\comment.cshtml" />
+    <Content Include="Views\Home\Publish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

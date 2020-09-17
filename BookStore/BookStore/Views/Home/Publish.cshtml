@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "发布售卖信息";
+}
+
+@section styles{
+    @Styles.Render("~/Content/styles/publish.css")
+}
+
+@section search{
+    <el-input class="form-input" v-model="search" placeholder="书名、老师、课程名">
+        <el-button slot="suffix" class="fa fa-search search-button" type="text">
+        </el-button>
+    </el-input>
+}
+<el-main>
+    <template>
+        <div id="menu" style="height:800px;width:300px;float:left;">
+
+
+        </div>
+        <div id="content" style="background-color:#FFFFFF;height:800px;width:800px;float:left;">
+            <h2>发布售卖信息</h2>
+            <template>
+                <el-select v-model="dept_name" placeholder="请选择学院">
+                    <el-option v-for="item in options"
+                               :key="item.value"
+                               :label="item.label"
+                               :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
+            <br>
+
+            <el-input class="form-input" v-model="book_name" placeholder="请输入书籍名称"></el-input>
+            <br>
+            <el-input class="form-input" v-model="price" placeholder="定价"></el-input>
+            <br>
+
+            <el-input class="form-input" v-model="good_description" placeholder="请输入描述"></el-input>
+            <br>
+
+
+            <el-input class="form-input" v-model="category" placeholder="category"></el-input>
+            <br>
+            <el-input class="form-input" v-model="publishing_house" placeholder="publishing_house"></el-input>
+            <br>
+            <el-input class="form-input" v-model="version" placeholder="version"></el-input>
+            <br>
+
+            <el-button type="primary" v-on:click="PublishBook">提交</el-button>
+        </div>
+    </template>
+</el-main>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/js/publish.js")
+}

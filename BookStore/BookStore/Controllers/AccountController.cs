@@ -137,11 +137,11 @@ namespace BookStore.Controllers
             List<Object> response = new List<Object>();
             List<Object> publishs = new List<Object>();
             DBops cc = new DBops();
-            List<GOODS> one = cc.get_solding_book();
+            List<GOODS> one = cc.get_my_selling_goods(user_id);
             int num = 0;
             for (int i = 0; i < one.Count; i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price > 0)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -176,7 +176,7 @@ namespace BookStore.Controllers
             int num = 0;
             for (int i = 0; i < one.Count; i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price <= -5)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -185,7 +185,7 @@ namespace BookStore.Controllers
                         goods_id = one[i].good_id,
                         book_id = one[i].book_id,
                         book_name = name,
-                        price = one[i].price,
+                        price = -(one[i].price+5),
                         goods_description = one[i].good_description,
                         img = "Content/imgs/Books/1.png",
                     });
@@ -211,7 +211,7 @@ namespace BookStore.Controllers
             int num = 0;
             for (int i = 0; i < one.Count; i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price == -1)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -220,7 +220,7 @@ namespace BookStore.Controllers
                         goods_id = one[i].good_id,
                         book_id = one[i].book_id,
                         book_name = name,
-                        price = one[i].price,
+                        price = 0,
                         goods_description = one[i].good_description,
                         img = "Content/imgs/Books/1.png",
                     });
@@ -246,7 +246,7 @@ namespace BookStore.Controllers
             int num = 0;
             for (int i = 0; i < one.Count; i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price == -3)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -255,7 +255,7 @@ namespace BookStore.Controllers
                         goods_id = one[i].good_id,
                         book_id = one[i].book_id,
                         book_name = name,
-                        price = one[i].price,
+                        price = 0,
                         goods_description = one[i].good_description,
                         img = "Content/imgs/Books/1.png",
                     });
@@ -281,7 +281,7 @@ namespace BookStore.Controllers
             int num = 0;
             for (int i = 0; i < one.Count; i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price <=-5)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -290,7 +290,7 @@ namespace BookStore.Controllers
                         goods_id = one[i].good_id,
                         book_id = one[i].book_id,
                         book_name = name,
-                        price = one[i].price,
+                        price = -(one[i].price+5),
                         goods_description = one[i].good_description,
                         img = "Content/imgs/Books/1.png",
                     });

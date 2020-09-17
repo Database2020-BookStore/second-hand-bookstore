@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<DateBaseTest.BOOK>
+
 @{
+    Layout = "~/Views/Shared/_SearchLayout.cshtml";
     ViewBag.Title = "检索";
 }
 @section styles{
     @Styles.Render("~/Content/styles/searchPage.css")
 }
-
-
 
 <div id="pic"><img id="blank" src="~/Content/imgs/blank.jpg" /></div>
 <div class="up">
@@ -39,26 +39,36 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.book_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.describe)
-                </td>
-                <td>
-                    @Html.ActionLink("查看详情", "show_goods", new { book_id = item.book_id, book_name = item.book_name, user_id = ViewData["user_id"] })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.book_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.describe)
+            </td>
+            <td>
+                @Html.ActionLink("查看售卖品", "show_goods", new { book_id = item.book_id, book_name = item.book_name, user_id = ViewData["user_id"] })
+            </td>
+            <td>
+                @Html.ActionLink("查看借阅品", "show_borrows", new { book_id = item.book_id, book_name = item.book_name, user_id = ViewData["user_id"] })
+            </td>
+            <td>
+                <button onClick="toComment(@item.book_id)">评论</button>
+            </td>
+        </tr>
         }
 
     </table>
 </div>
-<div style="height:50vh;"></div>
+
+
 @section scripts{
-<script>
+    <script>
+        function toComment(book_id) {
+            location = "../Home/comment?bookid=" + book_id;
+        }
     function submit() {
         location.href = "fetch_list?book_name=" + document.getElementById("book_name").value + "&course_name=" + document.getElementById("course_name").value+"&user_id="+"@ViewData["user_id"]";
     }
-</script>
+    </script>
 }

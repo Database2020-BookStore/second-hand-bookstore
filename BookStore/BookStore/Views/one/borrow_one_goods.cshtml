@@ -5,23 +5,13 @@
     @Styles.Render("~/Content/styles/show_one_goods.css")
 }
 
-
-
-<div class="whole">
+<div class="whole" v-loading="isLoading">
     <div class="goodImage">
         <img v-bind:src="imgSrc" />
     </div>
     <div class="info">
         <div class="goodName">
             {{goodName}}
-        </div>
-        <div style="width:600px;height:50px;background-color: rgb(218, 218, 218);margin-top:10px">
-            <div class="typeInfo">
-                价格：
-            </div>
-            <div class="price">
-                ￥{{price}}
-            </div>
         </div>
         <div style="width:600px;height:50px;margin-top:10px">
             <div class="typeInfo">
@@ -36,9 +26,9 @@
                 商品描述：{{goodsDescription}}
             </div>
         </div>
-        <div style="width:600px;height:50px;margin-top:50px;margin-left:100px">
-            <button type="button" class="addShoppingCart" v-on:click="checkLogin">
-                购买
+        <div style="width:600px;height:50px;margin-top:150px;margin-left:100px">
+            <button type="button" class="addShoppingCart" v-on:click="sendBorrowInfo">
+                向卖家发送借书信息
             </button>
         </div>
     </div>
@@ -50,14 +40,14 @@
                 最新评论：
             </div>
         </el-col>
-        <el-col :span="2">
-            <button style="margin-left:20px">发表评论</button>
-        </el-col>
+        @*<el-col :span="2">
+                <button style="margin-left:20px">发表评论</button>
+            </el-col>*@
     </el-row>
     <hr>
     <div class="comment">
         <div v-for="item in commentList">
-            <div>用户名：{{item.username}}</div>
+            <div>用户名：{{item.user_name}}</div>
             <div>用户评价：</div><div>{{item.comment}}</div>
             <br />
             <br />
@@ -71,6 +61,5 @@
 </div>
 
 @section scripts{
-    @Scripts.Render("~/Scripts/js/showGood.js")
+    @Scripts.Render("~/Scripts/js/borrowGood.js")
 }
-

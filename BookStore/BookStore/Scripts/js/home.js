@@ -29,12 +29,12 @@ var Methods = {
             .then((response)=> {
                 if (response.status == 200) {
                     var data = response.data[0];
+                    console.log(data);
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
-                            if(i%2==0)
-                                data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
-                            else
-                                data.bookList[i].img = location.origin + '/Content/imgs/Books/2.png';
+                            //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                            data.bookList[i].href = location.origin + '/one/borrow_one_goods?goods_id='+data.bookList[i].goods_id;
                         }
                         this.newBorrowBooks = data.bookList;
                         console.log("Get New BorrowBooks!");
@@ -59,7 +59,9 @@ var Methods = {
                     var data = response.data[0];
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
-                            data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                            data.bookList[i].href = location.origin + '/one/show_one_goods?goods_id=' + data.bookList[i].goods_id;
                         }
                         this.newSellBooks = data.bookList;
                         console.log("Get New SellBooks!");
@@ -85,7 +87,12 @@ var Methods = {
                     var data = response.data[0];
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
-                            data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                            if (data.bookList[i].price > 0)
+                                data.bookList[i].href = location.origin + '/one/show_one_goods?goods_id=' + data.bookList[i].goods_id;
+                            else if (data.bookList[i].price == 0)
+                                data.bookList[i].href = location.origin + '/one/borrow_one_goods?goods_id=' + data.bookList[i].goods_id;
                         }
                         this.recommendBooks= data.bookList;
                         console.log("Get RecommendBooks!");

@@ -18,7 +18,11 @@ namespace BookStore.Controllers
         {
             return View();
         }
-        public ActionResult show_one_goods()     //单个商品页面
+        public ActionResult comment()   //评论
+        {
+            return View();
+        }
+        public ActionResult Publish()   //发布
         {
             return View();
         }
@@ -34,12 +38,12 @@ namespace BookStore.Controllers
             List<Object> response = new List<Object>();
             List<Object> publishs = new List<Object>();
             DBops cc = new DBops();
-            List<GOODS> one = cc.get_solding_book();
+            List<GOODS> one = cc.get_borrowing_book();
             one = one.OrderByDescending(o => o.good_id).ToList();//降序,id 就是时间
             int num = 0;
             for (int i = 0; i < min(one.Count, number); i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price == -1)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -76,7 +80,7 @@ namespace BookStore.Controllers
             int num = 0;
             for (int i = 0; i < min(one.Count, number); i++)
             {
-                if (one[i].price >= 0)
+                if (one[i].price > 0)
                 {
                     num++;
                     string name = cc.get_book_name_from_good(one[i].good_id);
@@ -175,6 +179,14 @@ namespace BookStore.Controllers
         [HttpPost]
         public JsonResult getQuerryGoods(List<string> category, List<string> goodsType, int sort, string searchword, int page, int pageNum)
         {
+            if(goodsType==null)
+            {
+                List<Object> response = new List<object>();
+                response.Add(new {
+                    status = "success",
+                    bookList=new List<Object>()
+                });
+            }
             DBops cc = new DBops();
             List<Object> res = new List<Object>();
             List<Object> book_list = new List<Object>();
@@ -186,7 +198,7 @@ namespace BookStore.Controllers
             }
             else
             {
-                books = cc.SearchBooksByName(searchword, 0);
+                books = cc.SearchBooksByName(searchword, ((searchword.Length+1)/2));
 
             }
 
@@ -206,7 +218,7 @@ namespace BookStore.Controllers
             List<GOODS> good_list = new List<GOODS>();
             for (int i = 0; i < goods.Count; i++)
             {
-                if (goods[i].price < 0)
+                if (goods[i].price < -1)
                     continue;
                 bool ok = false;
                 BOOK book = cc.get_book(goods[i].book_id);
@@ -229,7 +241,7 @@ namespace BookStore.Controllers
                 int flag = 0;
                 if (goods[i].price > 0)
                     flag = 0;
-                else if (goods[i].price == 0)
+                else if (goods[i].price == -1)
                     flag = 1;
                 for (int j = 0; j < goodsTypeIndex.Count; j++)
                 {
@@ -287,16 +299,9 @@ namespace BookStore.Controllers
                 if (book == null) continue;
 
 
-
-                PUBLISH publish = cc.get_publish_by_good_id(good.good_id);
-
-
-                if (publish == null) continue;
-                int uid = publish.user_id;
                 book_list.Add(new
                 {
                     goods_id = good.good_id,
-                    user_id = uid,
                     book_id = good.book_id,
                     book_name = temps[i].name,
                     category = book.category,
@@ -352,7 +357,7 @@ namespace BookStore.Controllers
 
             for (int i = 0; i < goods.Count; i++)
             {
-                if (goods[i].price < 0)
+                if (goods[i].price < -1)
                     continue;
                 bool ok = false;
                 BOOK book = cc.get_book(goods[i].book_id);
@@ -375,7 +380,7 @@ namespace BookStore.Controllers
                 int flag = 0;
                 if (goods[i].price > 0)
                     flag = 0;
-                else if (goods[i].price == 0)
+                else if (goods[i].price == -1)
                     flag = 1;
                 for (int j = 0; j < goodsTypeIndex.Count; j++)
                 {
@@ -405,9 +410,6 @@ namespace BookStore.Controllers
                 BOOK book = cc.get_book(temps[i].good.book_id);
                 if (book == null) continue;
 
-                PUBLISH publish = cc.get_publish_by_good_id(good.good_id);
-
-                if (publish == null) continue;
                 count++;
                 
             }
@@ -444,51 +446,59 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public JsonResult getGoodsInfo(int goods_id)
+        public JsonResult PublishBook(int user_id,string book_name, int price,
+ string good_description, string dept_name = null, string category = null, string publishing_house = null, int version = -1)
         {
-            DBops cc = new DBops();
-            List<Object> res = new List<Object>();
-            GOODS good = cc.get_goods(goods_id);
-            if (good == null)
+            List<Object> response = new List<Object>();
+            List<Object> publishs = new List<Object>();
+            DBops one = new DBops();
+            int code = one.publish_books(book_name, price, good_description, user_id, dept_name, category, publishing_house, version);
+       
+    
+
+
+            if (code == -1)
             {
-                res.Add(new
+                response.Add(new
                 {
                     status = "fail",
-                    message = "Good doesn't exist"
+
                 });
+                return Json(response);
             }
-            else
+            response.Add(new
             {
-                BOOK book = cc.get_book(good.book_id);
-                int score = cc.get_average_score(good.book_id);
-                List<BOOK_COMMENT> comments = cc.get_comment_by_book_id(good.book_id);
-                List<Object> comment_list = new List<Object>();
-                PUBLISH publish = cc.get_publish_by_good_id(goods_id);
-                for (int i = 0; i < comments.Count; i++)
-                {
-                    USER user = cc.get_user_by_user_id(comments[i].user_id);
-                    comment_list.Add(new
-                    {
-                        user_id = user.user_id,
-                        user_name = user.user_name,
-                        comment = comments[i].content,
-                        //comment_time = comments[i].comment_time,
-                        comment_score = comments[i].book_score
-                    });
-                }
-                res.Add(new
-                {
-                    status = "success",
-                    book_name = book.book_name,
-                    price = good.price,
-                    saler_id = publish.user_id,
-                    gooods_description = good.good_description,
-                    goods_score = score,
-                    img_src = "Content/imgs/Books/1.png",
-                    commentList = comment_list
-                });
-            }
-            return Json(res);
+                status = "success",
+
+            });
+            return Json(response);
         }
+
+        [HttpPost]
+        public JsonResult give_book_c(int book_id, string comment, int score, int user_id)
+        {
+            List<Object> response = new List<Object>();
+            List<Object> publishs = new List<Object>();
+            DBops one = new DBops();
+            one.give_comment_for_book(book_id, comment, score, user_id);
+
+            publishs.Add(new
+            {
+                goods_id = 103,
+                user_id = 4,
+                book_id = 103,
+                book_name = "概率论与数理统计",
+                price = 16,
+                goods_description = "概率论与数理统计同步习题册 9787560864686",
+                img = "Content/imgs/Books/4.png",
+            });
+            response.Add(new
+            {
+                status = "success",
+                bookList = publishs
+            });
+            return Json(response);
+        }
+
     }
 }

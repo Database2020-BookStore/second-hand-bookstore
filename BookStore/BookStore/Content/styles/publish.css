@@ -1,0 +1,50 @@
+﻿
+/*输入框*/
+.navbar-item-blank-center {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    outline: none;
+}
+
+.el-input {
+    background-color: #f1f1f1;
+    width: 30%;
+    right: 5%;
+    border-radius: 20px;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+    .el-input.form-input {
+        border: 0;
+        font-size: 16px;
+        transition: .3s;
+    }
+
+        /*输入框文本*/
+        .el-input.form-input .el-input__inner {
+            border-radius: 20px;
+            border-width: 0;
+            outline: none;
+            background-color: #f1f1f1;
+            color: black;
+            transition: .3s;
+        }
+
+            /*输入框提示文字*/
+            .el-input.form-input .el-input__inner::-webkit-input-placeholder {
+                color: #777;
+            }
+
+            .el-input.form-input .el-input__inner::-moz-placeholder {
+                color: #777;
+            }
+
+            .el-input.form-input .el-input__inner:-ms-input-placeholder {
+                color: #777;
+            }
+/*搜索输入框按钮*/
+.el-button.search-button {
+    margin-right: 10px;
+}
