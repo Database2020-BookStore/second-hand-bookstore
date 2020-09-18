@@ -28,3 +28,47 @@
 .el-button.form-button {
     margin-top: 20px;
 }
+
+
+/*输入框*/
+.el-select.form-input {
+    border: 0;
+    outline: none;
+    font-size: 16px;
+    transition: .3s;
+}
+
+    .el-select.form-input:hover {
+        transform: scale(1.1);
+    }
+    /*输入框图标*/
+    .el-select.form-input .el-input__prefix {
+        margin: 0 10px;
+        color: white;
+    }
+
+    /*输入框文本*/
+    .el-select.form-input .el-input__inner {
+        padding-left: 40px;
+        border-radius: 20px;
+        border-width: 0;
+        background-color: rgba(255,255,255,.1);
+        color: white;
+        transition: .3s;
+    }
+
+    .el-select.form-input:hover .el-input__inner {
+        background-color: rgba(255,255,255,.2);
+    }
+    /*输入框提示文字*/
+    .el-select.form-input .el-input__inner::-webkit-input-placeholder {
+        color: rgba(255,255,255,.5);
+    }
+
+    .el-select.form-input .el-input__inner::-moz-placeholder {
+        color: rgba(255,255,255,.5);
+    }
+
+    .el-select.form-input .el-input__inner:-ms-input-placeholder {
+        color: rgba(255,255,255,.5);
+    }

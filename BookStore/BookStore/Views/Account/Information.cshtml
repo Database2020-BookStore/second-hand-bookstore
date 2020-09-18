@@ -158,7 +158,7 @@
                     <div v-loading="isLoading[5]" style="min-height:60vh;">
                         <el-col :span="5" v-for="item in boughtBooks">
                             <el-card class="bookcard">
-                                <a :href="item.href" target="blank">
+                                <a :href="item.img" target="blank">
                                     <div class="imgframe">
                                         <el-image :src="item.img" class="bookimg"></el-image>
                                     </div>
@@ -296,7 +296,7 @@
                             var data = response.data[0];
                             if (data.status == 'success') {
                                 for (var i = 0; i < data.bookList.length; i++) {
-                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/'+(i%12+1)+'.png';
                                 }
                                 this.sellingBooks = data.bookList;
                                 console.log("Get New BorrowBooks!");
@@ -321,7 +321,7 @@
                             var data = response.data[0];
                             if (data.status == 'success') {
                                 for (var i = 0; i < data.bookList.length; i++) {
-                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
                                 }
                                 this.selledBooks = data.bookList;
                                 console.log("Get New BorrowBooks!");
@@ -346,7 +346,7 @@
                             var data = response.data[0];
                             if (data.status == 'success') {
                                 for (var i = 0; i < data.bookList.length; i++) {
-                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
                                 }
                                 this.borrowingBooks = data.bookList;
                                 console.log("Get New BorrowBooks!");
@@ -371,7 +371,7 @@
                             var data = response.data[0];
                             if (data.status == 'success') {
                                 for (var i = 0; i < data.bookList.length; i++) {
-                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
+                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
                                 }
                                 this.borrowedBooks = data.bookList;
                                 console.log("Get New BorrowBooks!");
@@ -396,9 +396,7 @@
                             var data = response.data[0];
                             if (data.status == 'success') {
                                 for (var i = 0; i < data.bookList.length; i++) {
-                                    
-                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 7 + 1) + '.png';
-                                    data.bookList[i].href = location.origin + '/Home/comment?bookid=' + data.bookList[i].book_id;
+                                    data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
                                 }
                                 this.boughtBooks = data.bookList;
                                 console.log("Get New BorrowBooks!");

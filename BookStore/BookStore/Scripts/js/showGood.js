@@ -54,6 +54,7 @@ var Methods = {
                     else {
                         var message = data.message;
                         console.log(message);
+                        alert(message);
                     }
                 }
             })

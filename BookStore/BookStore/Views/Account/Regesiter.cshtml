@@ -35,9 +35,17 @@
         </el-input>
     </el-form-item>
     <el-form-item>
-        <el-input class="form-input" v-model="department" placeholder="系别" maxlength="10">
+        @*<el-input class="form-input" v-model="department" placeholder="系别" maxlength="10">
             <i slot="prefix" class="fa fa-book"></i>
-        </el-input>
+        </el-input>*@
+        <el-select class="form-input" v-model="department" placeholder="请选择学院">
+            <i slot="prefix" class="fa fa-book"></i>
+            <el-option v-for="item in options"
+                       :key="item.value"
+                       :label="item.label"
+                       :value="item.value">
+            </el-option>
+        </el-select>
     </el-form-item>
     <el-form-item>
         <el-input class="form-input" v-model="age" placeholder="年龄" maxlength="3">

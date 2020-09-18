@@ -181,13 +181,9 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\imgs\avatar-default.svg" />
-    <Content Include="Content\imgs\blank.jpg" />
     <Content Include="Content\imgs\home-background.jpg" />
-    <Content Include="Content\imgs\iceland.jpg" />
     <Content Include="Content\imgs\login-background.png" />
-    <Content Include="Content\imgs\mars.jpg" />
     <Content Include="Content\imgs\regesiter-background.png" />
-    <Content Include="Content\imgs\sea.jpg" />
     <Content Include="Content\imgs\tongji.png" />
     <Content Include="Content\styles\footer.css" />
     <Content Include="Content\styles\home.css" />
@@ -221,7 +217,6 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ElementUI\element-ui.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

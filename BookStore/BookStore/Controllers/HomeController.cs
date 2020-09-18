@@ -38,26 +38,22 @@ namespace BookStore.Controllers
             List<Object> response = new List<Object>();
             List<Object> publishs = new List<Object>();
             DBops cc = new DBops();
-            List<GOODS> one = cc.get_borrowing_book();
+            List<GOODS> one = cc.get_solding_book();
             one = one.OrderByDescending(o => o.good_id).ToList();//降序,id 就是时间
             int num = 0;
             for (int i = 0; i < min(one.Count, number); i++)
             {
-                if (one[i].price == -1)
+                num++;
+                string name = cc.get_book_name_from_good(one[i].good_id);
+                publishs.Add(new
                 {
-                    num++;
-                    string name = cc.get_book_name_from_good(one[i].good_id);
-                    publishs.Add(new
-                    {
-                        goods_id = one[i].good_id,
-                        book_id = one[i].book_id,
-                        book_name = name,
-                        price = one[i].price,
-                        goods_description = one[i].good_description,
-                        img = "Content/imgs/Books/1.png",
+                    goods_id = one[i].good_id,
+                    book_id = one[i].book_id,
+                    book_name = name,
+                    price = one[i].price,
+                    goods_description = one[i].good_description,
+                    img = "Content/imgs/Books/1.png",
                     });
-
-                }
                 if (num >= number) break;
             }
             response.Add(new
@@ -446,17 +442,13 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public JsonResult PublishBook(int user_id,string book_name, int price,
+        public JsonResult PublishBook(string book_name, int price,
  string good_description, string dept_name = null, string category = null, string publishing_house = null, int version = -1)
         {
             List<Object> response = new List<Object>();
             List<Object> publishs = new List<Object>();
             DBops one = new DBops();
-            int code = one.publish_books(book_name, price, good_description, user_id, dept_name, category, publishing_house, version);
-       
-    
-
-
+            int code = one.publish_goods(book_name, price, good_description, 152, dept_name, category, publishing_house, version);
             if (code == -1)
             {
                 response.Add(new

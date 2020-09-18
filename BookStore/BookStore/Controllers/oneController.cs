@@ -36,10 +36,28 @@ namespace BookStore.Controllers
             else
             {
                 BOOK book = cc.get_book(good.book_id);
+                if(book==null)
+                {
+                    res.Add(new
+                    {
+                        status = "fail",
+                        message = "Good doesn't exist"
+                    });
+                    return Json(res);
+                }
                 int score = cc.get_average_score(good.book_id);
                 List<BOOK_COMMENT> comments = cc.get_comment_by_book_id(good.book_id);
                 List<Object> comment_list = new List<Object>();
                 PUBLISH publish = cc.get_publish_by_good_id(goods_id);
+                if (publish == null)
+                {
+                    res.Add(new
+                    {
+                        status = "fail",
+                        message = "Good doesn't exist"
+                    });
+                    return Json(res);
+                }
                 for (int i = 0; i < comments.Count; i++)
                 {
                     USER user = cc.get_user_by_user_id(comments[i].user_id);

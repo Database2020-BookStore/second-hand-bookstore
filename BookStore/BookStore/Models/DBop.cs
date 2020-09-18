@@ -609,7 +609,7 @@ namespace DBop
             datebase_connect.UpdateInsertDelete("update goods set price=-3 where goods_id=" + goods_id.ToString());
             //Console.WriteLine("update goods set price=-1 where goods_id=" + goods_id.ToString());
         }
-        public int publish_books(string book_name, int price,
+        public int publish_goods(string book_name, int price,
     string good_description, int user_id = 0, string dept_name = null, string category = null, string publishing_house = null, int version = -1)
         {
             DateBaseCmds database_connect = new DateBaseCmds();
@@ -640,31 +640,11 @@ namespace DBop
             {
                 book_id = book_list[0].book_id;
             }
-            int goods_id = generate_good_id();
             database_connect.UpdateInsertDelete(
-                "insert into goods values(" + goods_id.ToString() + "," + price.ToString() + ",'" +
+                "insert into goods values(" + generate_good_id().ToString() + "," + price.ToString() + ",'" +
                 good_description + "'," + book_id.ToString() + ")"
                 );
-
-            string publish_type = "123";
-
-            database_connect.UpdateInsertDelete(
-                "insert into publish values(" + goods_id.ToString() + "," + user_id.ToString() + ",'" +
-                book_id.ToString() + "'," + publish_type + ")"
-                );
-            
             return 0;
         }
-
-        public List<GOODS> get_borrowing_book()
-        {
-            DateBaseCmds datebase_connect = new DateBaseCmds();
-            datebase_connect.test_connect();
-            List<GOODS> solding_book_list = new List<GOODS>();
-            solding_book_list = datebase_connect.QueryGOODS("select * from goods where price=-1");
-            return solding_book_list;
-        }
-
-
     }
 }
