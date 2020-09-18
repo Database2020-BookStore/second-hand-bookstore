@@ -28,7 +28,7 @@
                 评价：
             </div>
             <div class="evaluation">
-                {{marks}}
+                <el-rate v-model="marks" disabled show-score text-color="rgb(255,172,45)"></el-rate>
             </div>
         </div>
         <div style="width:600px;height:50px;margin-top:10px">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div style="width:600px;height:50px;margin-top:50px;margin-left:100px">
-            <button type="button" class="addShoppingCart" v-on:click="sendPurchaseInfo">
+            <button type="button" class="addShoppingCart" v-on:click="confirm">
                 购买
             </button>
         </div>
@@ -65,10 +65,13 @@
                 <el-col :span="4">
                     <div>评价时间：{{item.comment_time}}</div>
                 </el-col>
-                <el-col :span="2">
+                <el-col :span="1">
                     <div>
-                        评分：{{item.comment_score}}
+                        评分：
                     </div>
+                </el-col>
+                <el-col :span="10">
+                    <el-rate v-model="item.comment_score" disabled show-score text-color="rgb(255,172,45)"></el-rate>
                 </el-col>
             </el-row>
             <hr>

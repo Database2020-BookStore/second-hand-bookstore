@@ -25,6 +25,10 @@ var Methods = {
         }
     },
     Publish_comment: function () {
+        if (!this.isLogin) {
+            alert("未登录！");
+            return;
+        }
         url = location.origin + '/Home/give_book_c';
         user_id = this.uid;
         book_id = this.book_id;

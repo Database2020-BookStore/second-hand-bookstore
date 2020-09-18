@@ -33,7 +33,7 @@ var Methods = {
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
                             //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
-                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + data.bookList[i].book_id + '.png';
                             data.bookList[i].href = location.origin + '/one/borrow_one_goods?goods_id='+data.bookList[i].goods_id;
                         }
                         this.newBorrowBooks = data.bookList;
@@ -60,7 +60,7 @@ var Methods = {
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
                             //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
-                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + data.bookList[i].book_id+ '.png';
                             data.bookList[i].href = location.origin + '/one/show_one_goods?goods_id=' + data.bookList[i].goods_id;
                         }
                         this.newSellBooks = data.bookList;
@@ -88,7 +88,7 @@ var Methods = {
                     if (data.status == 'success') {
                         for (var i = 0; i < data.bookList.length; i++) {
                             //data.bookList[i].img = location.origin + '/' + data.bookList[i].img;
-                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + (i % 12 + 1) + '.png';
+                            data.bookList[i].img = location.origin + '/Content/imgs/Books/' + data.bookList[i].book_id+ '.png';
                             if (data.bookList[i].price > 0)
                                 data.bookList[i].href = location.origin + '/one/show_one_goods?goods_id=' + data.bookList[i].goods_id;
                             else if (data.bookList[i].price == 0)

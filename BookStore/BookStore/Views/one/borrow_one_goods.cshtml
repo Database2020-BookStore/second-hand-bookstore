@@ -18,7 +18,7 @@
                 评价：
             </div>
             <div class="evaluation">
-                {{marks}}
+                <el-rate v-model="marks" disabled show-score text-color="rgb(255,172,45)"></el-rate>
             </div>
         </div>
         <div style="width:600px;height:50px;margin-top:10px">
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div style="width:600px;height:50px;margin-top:150px;margin-left:100px">
-            <button type="button" class="addShoppingCart" v-on:click="sendBorrowInfo">
+            <button type="button" class="addShoppingCart" v-on:click="confirm">
                 向卖家发送借书信息
             </button>
         </div>
@@ -51,10 +51,19 @@
             <div>用户评价：</div><div>{{item.comment}}</div>
             <br />
             <br />
-            <div>评价时间：{{item.comment_time}}</div><div></div>
-            <div>
-                评分：{{item.comment_score}}
-            </div>
+            <el-row>
+                <el-col :span="4">
+                    <div>评价时间：{{item.comment_time}}</div>
+                </el-col>
+                <el-col :span="1">
+                    <div>
+                        评分：
+                    </div>
+                </el-col>
+                <el-col :span="10">
+                    <el-rate v-model="item.comment_score" disabled show-score text-color="rgb(255,172,45)"></el-rate>
+                </el-col>
+            </el-row>
             <hr>
         </div>
     </div>

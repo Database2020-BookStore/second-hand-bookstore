@@ -66,9 +66,13 @@ namespace BookStore.Controllers
                         user_id = user.user_id,
                         user_name = user.user_name,
                         comment = comments[i].content,
-                        //comment_time = comments[i].comment_time,
-                        comment_score = comments[i].book_score
+                        comment_time = comments[i].comment_time,
+                        comment_score = comments[i].book_score,
                     });
+                }
+                if(score==-1)
+                {
+                    score = 0;
                 }
                 res.Add(new
                 {
@@ -79,7 +83,9 @@ namespace BookStore.Controllers
                     goods_description = good.good_description,
                     goods_score = score,
                     img_src = "Content/imgs/Books/1.png",
-                    commentList = comment_list
+                    commentList = comment_list,
+                    book_id = good.book_id
+
                 });
             }
             return Json(res);

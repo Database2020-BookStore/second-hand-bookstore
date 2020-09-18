@@ -83,12 +83,14 @@ namespace DateBaseTest
         public int user_id;
         public int book_score;
         public string content;
-        public BOOK_COMMENT(int _book_id, int _user_id, int _book_score, string _content)
+        public string comment_time;
+        public BOOK_COMMENT(int _book_id, int _user_id, int _book_score, string _content,string _time)
         {
             this.book_id = _book_id;
             this.user_id = _user_id;
             this.book_score = _book_score;
             this.content = _content;
+            this.comment_time = comment_time;
         }
     }
     class PUBLISH
@@ -354,6 +356,7 @@ namespace DateBaseTest
                     int user_id = -1;
                     int book_score = -1;
                     string content = null;
+                    string time = null;
                     try
                     {
                         goods_id = reader.GetInt32("goods_id");
@@ -386,8 +389,16 @@ namespace DateBaseTest
                     {
                         content = null;
                     }
+                    try
+                    {
+                        time = reader.GetString("comment_time");
+                    }
+                    catch
+                    {
+                        time = null;
+                    }
                     BOOK_COMMENT book_comment
-                        = new BOOK_COMMENT(goods_id, user_id, book_score, content);
+                        = new BOOK_COMMENT(goods_id, user_id, book_score, content,time);
                     book_comments.Add(book_comment);
                 }
                 conn.Close();

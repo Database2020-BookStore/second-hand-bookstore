@@ -44,7 +44,7 @@ var Methods = {
                         this.price = data.price;
                         this.goodName = data.book_name;
                         this.goodsDescription = data.goods_description;
-                        this.imgSrc = location.origin + '/' + data.img_src;
+                        this.imgSrc = location.origin + '/Content/imgs/Books/' + data.book_id + '.png';
                         this.marks = data.goods_score;
                         this.commentList = data.commentList;
                         this.sid = data.saler_id;
@@ -54,7 +54,6 @@ var Methods = {
                     else {
                         var message = data.message;
                         console.log(message);
-                        alert(message);
                     }
                 }
             })
@@ -69,35 +68,55 @@ var Methods = {
     },
 
     sendPurchaseInfo: function () {
+        url = location.origin + '/one/buy_goods';
+        var time = new Date();
+        var get_time = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
+        var requestData = {
+            buyer_id: this.uid, saler_id: this.sid, goods_id: this.goodsID,
+            purchase_time: get_time, purchase_score: 0, purchase_comment: ""
+        };
+        axios
+            .post(url, requestData)
+            .then((response) => {
+                if (response.status == 200) {
+                    var data = response.data[0];
+                    if (data.status == 'success') {
+                        alert("购买成功！订单已发送到您的个人信息页上！");
+                        location = "../../"
+                    }
+                    else {
+                        var message = data.message;
+                        console.log(message);
+                    }
+                }
+            })
+    },
+
+    confirm: function () {
         if (!this.isLogin) {
             alert('您还未登录，请点击导航栏“登录”按钮进行登录！');
             return;
         }
         else {
-            url = location.origin + '/one/buy_goods';
-            var time = new Date();
-            var get_time = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate();
-            var requestData = {
-                buyer_id: this.uid, saler_id: this.sid, goods_id: this.goodsID,
-                purchase_time: get_time, purchase_score:0, purchase_comment: ""
-            };
-            axios
-                .post(url, requestData)
-                .then((response) => {
-                    if (response.status == 200) {
-                        var data = response.data[0];
-                        if (data.status == 'success') {
-                            alert("购买成功！订单已发送到您的个人信息页上！");
-                            history.go(-1);
-                        }
-                        else {
-                            var message = data.message;
-                            console.log(message);
-                        }
-                    }
-                })
+            var info = '“' + this.goodName + ' ￥' + this.price + '”' + '请确认购买信息。';
+            this.$confirm(info, '确认购买', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'info'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '购买成功!'
+                });
+                this.sendPurchaseInfo();
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消购买。'
+                });
+            });
         }
-    },
+    }
 };
 
 Created = function () {

@@ -108,6 +108,10 @@ var Methods = {
         this.isLogin = false;
     },
     PublishBook: function () {
+        if (!this.isLogin) {
+            alert("未登录！");
+            return;
+        }
         url = location.origin + '/Home/PublishBook';
         user_id = this.user_id
         book_name = this.book_name;
